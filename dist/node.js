@@ -76,6 +76,9 @@ define("node", ["require", "exports"], function (require, exports) {
                 throw new Error('Node not set!');
             return this._root.getElementsByClassName(className).length !== 0;
         };
+        Node.prototype.a = function (tagName, attributes, text, setCurrent) {
+            return this.appendNode(tagName, attributes, text, setCurrent);
+        };
         Node.prototype.appendNode = function (tagName, attributes, text, setCurrent) {
             if (this._current === undefined)
                 throw new Error('Node not set!');
@@ -85,6 +88,9 @@ define("node", ["require", "exports"], function (require, exports) {
                 this._current = HTMLElement;
             }
             return this;
+        };
+        Node.prototype.a_ = function (tagName, attributes, text) {
+            return this.appendNode(tagName, attributes, text, true);
         };
         Node.prototype.appendNode_ = function (tagName, attributes, text) {
             return this.appendNode(tagName, attributes, text, true);

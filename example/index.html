@@ -45,8 +45,10 @@
    <script src="./script/require.js"></script>
    <script src="../dist/node.js"></script>
    <script>
+      var node, olaf
       require(['node'], function (Node) {
-         let node = new Node.default('div', { 'class': 'class-test' })
+         node = new Node.default('div', { 'class': 'class-test' })
+         olaf = Node
          document.getElementById("demo").innerHTML = node.toHTML()
 
          node

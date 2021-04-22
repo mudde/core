@@ -66,6 +66,10 @@ export default class Node {
       return this._root.getElementsByClassName(className).length !== 0
    }
 
+   a(tagName: string, attributes?: any, text?: string, setCurrent?: boolean): Node {
+      return this.appendNode(tagName, attributes, text, setCurrent)
+   }
+
    appendNode(tagName: string, attributes?: any, text?: string, setCurrent?: boolean): Node {
       if (this._current === undefined) throw new Error('Node not set!')
 
@@ -78,6 +82,10 @@ export default class Node {
       }
 
       return this
+   }
+
+   a_(tagName: string, attributes?: any, text?: string): Node {
+      return this.appendNode(tagName, attributes, text, true)
    }
 
    appendNode_(tagName: string, attributes?: any, text?: string): Node {
