@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Example - Node</title>
+</head>
+
+<body>
+   <xmp id='demo'></xmp>
+   <script src="../node_modules/requirejs/require.js"></script>
+   <script src="../dist/node.js"></script>
+   <script>
+      require(['node'], function (Node) {
+         var node = new Node.default('div', {'class':'class-test'})
+         console.debug(node);
+         document.getElementById("demo").innerHTML = node.toHTML()
+      });
+   </script>
+</body>
+
+</html>

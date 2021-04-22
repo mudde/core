@@ -1,0 +1,24 @@
+{
+   "compilerOptions": {
+      "module": "AMD",
+      "target": "es5",
+      "lib": [
+         "ES2015",
+         "DOM"
+      ],
+      "strict": true,
+      "noImplicitAny": false,
+      "esModuleInterop": true,
+      "removeComments": true,
+      "preserveConstEnums": true,
+      "outFile": "./dist/node.js",
+      "sourceMap": true,
+   },
+   "include": [
+      "src/**/*"
+   ],
+   "exclude": [
+      "dist",
+      "node_modules"
+   ]
+}
