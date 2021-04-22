@@ -7,6 +7,7 @@ Easy node creation in javascript
 * documentation
 
 # example
+```javascript
 let node = new Node('div')
 
 node
@@ -17,9 +18,10 @@ node
     .a('li', {'value': 1}, 'Option 01')
     .a('li', {'value': 2}, 'Option 02')
     .a('li', {'value': 3}, 'Option 03')
-
+```
 node.toHTML()
 ---------
+```HTML
 <div>
   <a href=\"http://www.mudde.nl\">
     <img src=\"http://www.mudde.nl/image.png\">
@@ -29,4 +31,5 @@ node.toHTML()
     <li value=\"2\">Option 02</li>
     <li value=\"3\">Option 03</li>
   </ul>
-</div>"
+</div> 
+```
