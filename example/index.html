@@ -6,17 +6,61 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Example - Node</title>
+   <style>
+      pre {
+         display: grid;
+      }
+
+      code {
+         color: #333;
+         border-top: 1px solid black;
+         display: block;
+      }
+
+      xmp {
+         color: #00d;
+         border-bottom: 1px solid black;
+         background-color: rgba(0, 0, 0, 0.1);
+         margin: 10px 0 0 0;
+      }
+   </style>
 </head>
 
 <body>
-   <xmp id='demo'></xmp>
-   <script src="../node_modules/requirejs/require.js"></script>
+   <pre><code>new Node.default('div', {'class':'class-test'})</code>
+      <xmp id='demo'></xmp></pre>
+
+   <pre><code>new Node.default('div', { 'class': 'class-test' })
+         .appendElement('a', { 'href': 'http://www.google.com' }, 'link')
+         .appendElement('p', { 'class': 'bold' })
+         .appendElement('a', { 'href': 'http://www.google.com' }, 'link')</code>
+            <xmp id='demo2'></xmp></pre>
+
+   <pre><code>new Node.default('div', { 'class': 'class-test' })
+               .appendElement_('a', { 'href': 'http://www.google.com' }, 'link')
+               .prependElement_('p', { 'class': 'bold' })
+               .appendElement_('a', { 'href': 'http://www.google.com' }, 'link')</code>
+                  <xmp id='demo3'></xmp></pre>
+
+   <script src="./script/require.js"></script>
    <script src="../dist/node.js"></script>
    <script>
       require(['node'], function (Node) {
-         var node = new Node.default('div', {'class':'class-test'})
-         console.debug(node);
+         let node = new Node.default('div', { 'class': 'class-test' })
          document.getElementById("demo").innerHTML = node.toHTML()
+
+         node
+            .appendNode('a', { 'href': 'http://www.google.com' }, 'link')
+            .appendNode('p', { 'class': 'bold' })
+            .appendNode('a', { 'href': 'http://www.google.com' }, 'link')
+         document.getElementById("demo2").innerHTML = node.toHTML()
+
+         node = new Node.default('div', { 'class': 'class-test' })
+         node
+            .appendNode_('a', { 'href': 'http://www.google.com' }, 'link')
+            .prependNode_('p', { 'class': 'bold' })
+            .appendNode_('a', { 'href': 'http://www.google.com' }, 'link')
+         document.getElementById("demo3").innerHTML = node.toHTML()
       });
    </script>
 </body>

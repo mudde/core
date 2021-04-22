@@ -32,21 +32,6 @@ define("node", ["require", "exports"], function (require, exports) {
         function Node(tagName, attributes, text) {
             this._root = this._current = this.createNode(tagName, attributes, text);
         }
-        Node.prototype.addClass = function (className) {
-            if (this._current === undefined)
-                throw new Error('Node not set!');
-            this._current.className = this._current.className + " " + className;
-            return this;
-        };
-        Object.defineProperty(Node.prototype, "innerHTML", {
-            set: function (html) {
-                if (this._current === undefined)
-                    throw new Error('Node not set!');
-                this._current.innerHTML = html;
-            },
-            enumerable: false,
-            configurable: true
-        });
         Node.prototype.createNode = function (tagName, attributes, text) {
             var node = document.createElement(tagName);
             if (attributes) {
@@ -59,6 +44,13 @@ define("node", ["require", "exports"], function (require, exports) {
                 node.innerText = text;
             }
             return node;
+        };
+        Node.prototype.addClass = function (className) {
+            if (this._current === undefined)
+                throw new Error('Node not set!');
+            var currentClass = this._current.className;
+            this._current.className = currentClass + " " + className;
+            return this;
         };
         Node.prototype.getElementById = function (id) {
             var element = document.getElementById(id);
@@ -114,14 +106,27 @@ define("node", ["require", "exports"], function (require, exports) {
             }
             return this;
         };
-        Node.prototype._ = function () {
+        Node.prototype.parent = function () {
             if (this._current === undefined)
                 throw new Error('Node not set!');
             var parent = this._current.parentElement;
             this._current = parent === null ? this._current : parent;
             return this;
         };
+        Node.prototype._ = function () {
+            return this.parent();
+        };
         Node.prototype.prependElement = function (node) {
+            if (this._current === undefined)
+                throw new Error('Node not set!');
+            var childNode = node instanceof Node ? node.root() : node;
+            var firstChild = this._current.firstChild;
+            if (firstChild) {
+                this._current = firstChild.insertBefore(childNode, null);
+            }
+            return this;
+        };
+        Node.prototype.prependElement_ = function (node) {
             if (this._current === undefined)
                 throw new Error('Node not set!');
             var childNode = node instanceof Node ? node.root() : node;
@@ -159,6 +164,15 @@ define("node", ["require", "exports"], function (require, exports) {
                 if (this._current === undefined)
                     throw new Error('Node not set!');
                 return this._current.getAttribute('id');
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(Node.prototype, "innerHTML", {
+            set: function (html) {
+                if (this._current === undefined)
+                    throw new Error('Node not set!');
+                this._current.innerHTML = html;
             },
             enumerable: false,
             configurable: true

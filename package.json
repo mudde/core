@@ -21,8 +21,5 @@
   "bugs": {
     "url": "https://github.com/omudde/node/issues"
   },
-  "homepage": "https://github.com/omudde/node#readme",
-  "dependencies": {
-    "requirejs": "^2.3.6"
-  }
+  "homepage": "https://github.com/omudde/node#readme"
 }

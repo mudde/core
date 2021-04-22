@@ -1,173 +1,192 @@
 export default class Node {
 
-  private _root?: HTMLElement
-  private _current?: HTMLElement
+   private _root?: HTMLElement
+   private _current?: HTMLElement
 
-  constructor(tagName: string, attributes?: any, text?: string) {
-     this._root = this._current = this.createNode(tagName, attributes, text)
-  }
+   constructor(tagName: string, attributes?: any, text?: string) {
+      this._root = this._current = this.createNode(tagName, attributes, text)
+   }
 
-  addClass(className: string): Node {
-     if (this._current === undefined) throw new Error('Node not set!')
+   private createNode(tagName: string, attributes?: any, text?: string): HTMLElement {
+      let node = document.createElement(tagName)
 
-     this._current.className = `${this._current.className} ${className}`
+      if (attributes) {
+         for (let key in attributes) {
+            let value = attributes[key];
+            node.setAttribute(key, value)
+         }
+      }
 
-     return this
-  }
+      if (text) {
+         node.innerText = text
+      }
 
-  set innerHTML(html: string) {
-     if (this._current === undefined) throw new Error('Node not set!')
+      return node
+   }
 
-     this._current.innerHTML = html
-  }
+   addClass(className: string): Node {
+      if (this._current === undefined) throw new Error('Node not set!')
 
-  private createNode(tagName: string, attributes?: any, text?: string): HTMLElement {
-     var node = document.createElement(tagName)
+      let currentClass = this._current.className
 
-     if (attributes) {
-        for (let key in attributes) {
-           let value = attributes[key];
-           node.setAttribute(key, value)
-        }
-     }
+      this._current.className = `${currentClass} ${className}`
 
-     if (text) {
-        node.innerText = text
-     }
+      return this
+   }
 
-     return node
-  }
+   getElementById(id: string): Node {
+      let element = document.getElementById(id)
 
-  getElementById(id: string): Node {
-     var element = document.getElementById(id)
+      if (element) {
+         this._current = element
+      }
 
-     if (element) {
-        this._current = element
-     }
+      return this
+   }
 
-     return this
-  }
+   getElementByTagName(tagName: string): HTMLCollectionOf<Element> {
+      if (this._root === undefined) throw new Error('Node not set!')
 
-  getElementByTagName(tagName: string): HTMLCollectionOf<Element> {
-     if (this._root === undefined) throw new Error('Node not set!')
+      let element = this._root.getElementsByTagName(tagName)
 
-     var element = this._root.getElementsByTagName(tagName)
+      return element
+   }
 
-     return element
-  }
+   getElementByClass(className: string): HTMLCollectionOf<Element> {
+      if (this._root === undefined) throw new Error('Node not set!')
 
-  getElementByClass(className: string): HTMLCollectionOf<Element> {
-     if (this._root === undefined) throw new Error('Node not set!')
+      let element = this._root.getElementsByClassName(className)
 
-     var element = this._root.getElementsByClassName(className)
+      return element
+   }
 
-     return element
-  }
+   hasElementByClass(className: string): boolean {
+      if (this._root === undefined) throw new Error('Node not set!')
 
-  hasElementByClass(className: string): boolean {
-     if (this._root === undefined) throw new Error('Node not set!')
+      return this._root.getElementsByClassName(className).length !== 0
+   }
 
-     return this._root.getElementsByClassName(className).length !== 0
-  }
+   appendNode(tagName: string, attributes?: any, text?: string, setCurrent?: boolean): Node {
+      if (this._current === undefined) throw new Error('Node not set!')
 
-  appendNode(tagName: string, attributes?: any, text?: string, setCurrent?: boolean) {
-     if (this._current === undefined) throw new Error('Node not set!')
+      let HTMLElement = this._current.appendChild(this.createNode(tagName, attributes))
 
-     var HTMLElement = this._current.appendChild(this.createNode(tagName, attributes))
+      HTMLElement.innerText = text ? text : ''
 
-     HTMLElement.innerText = text ? text : ''
+      if (setCurrent === true) {
+         this._current = HTMLElement
+      }
 
-     if (setCurrent === true) {
-        this._current = HTMLElement
-     }
+      return this
+   }
 
-     return this
-  }
+   appendNode_(tagName: string, attributes?: any, text?: string): Node {
+      return this.appendNode(tagName, attributes, text, true)
+   }
 
-  appendNode_(tagName: string, attributes?: any, text?: string) {
-     return this.appendNode(tagName, attributes, text, true)
-  }
+   toHTML(outerHTML: boolean = true): string {
+      if (this._root === undefined) throw new Error('Node not set!')
 
-  toHTML(outerHTML: boolean = true): string {
-     if (this._root === undefined) throw new Error('Node not set!')
+      let root: HTMLElement = this._root
 
-     var root: HTMLElement = this._root
+      return outerHTML ? root.outerHTML : root.innerHTML
+   }
 
-     return outerHTML ? root.outerHTML : root.innerHTML
-  }
+   setAttributes(attributes: any): Node {
+      if (this._current === undefined) throw new Error('Node not set!')
 
-  setAttributes(attributes: any) {
-     if (this._current === undefined) throw new Error('Node not set!')
+      let node = this._current
 
-     var node = this._current
+      for (let key in attributes) {
+         let value = attributes[key];
 
-     for (let key in attributes) {
-        let value = attributes[key];
+         node.setAttribute(key, value)
+      }
 
-        node.setAttribute(key, value)
-     }
+      return this
+   }
 
-     return this
-  }
+   parent(): Node {
+      if (this._current === undefined) throw new Error('Node not set!')
 
-  _(): Node {       //  goto parent element
-     if (this._current === undefined) throw new Error('Node not set!')
+      let parent = this._current.parentElement
 
-     var parent = this._current.parentElement
+      this._current = parent === null ? this._current : parent
 
-     this._current = parent === null ? this._current : parent
+      return this
+   }
 
-     return this
-  }
+   _(): Node {                   //  Alias for method 'parent'
+      return this.parent();
+   }
 
-  prependElement(node: HTMLElement | Node): Node {
-     if (this._current === undefined) throw new Error('Node not set!')
+   prependElement(node: HTMLElement | Node): Node {
+      if (this._current === undefined) throw new Error('Node not set!')
 
-     var childNode = node instanceof Node ? node.root() : node
-     var firstChild = this._current.firstChild;
+      let childNode = node instanceof Node ? node.root() : node
+      let firstChild = this._current.firstChild;
 
-     if (firstChild) {
-        this._current = firstChild.insertBefore(childNode, null)
-     }
+      if (firstChild) {
+         this._current = firstChild.insertBefore(childNode, null)
+      }
 
-     return this
-  }
+      return this
+   }
 
-  appendElement(node: HTMLElement | Node): Node {
-     if (this._current === undefined) throw new Error('Node not set!')
+   prependElement_(node: HTMLElement | Node): Node {
+      if (this._current === undefined) throw new Error('Node not set!')
 
-     var childNode = node instanceof Node ? node.root() : node
+      let childNode = node instanceof Node ? node.root() : node
+      let firstChild = this._current.firstChild;
 
-     this._current = this._current.appendChild(childNode)
+      if (firstChild) {
+         this._current = firstChild.insertBefore(childNode, null)
+      }
 
-     return this
-  }
+      return this
+   }
 
-  appendElement_(node: HTMLElement | Node): Node {
-     if (this._current === undefined) throw new Error('Node not set!')
+   appendElement(node: HTMLElement | Node): Node {
+      if (this._current === undefined) throw new Error('Node not set!')
 
-     var childNode = node instanceof Node ? node.root() : node
+      let childNode = node instanceof Node ? node.root() : node
 
-     this._current.appendChild(childNode)
+      this._current = this._current.appendChild(childNode)
 
-     return this
-  }
+      return this
+   }
 
-  gotoRoot(): Node {
-     this._current = this._root;
+   appendElement_(node: HTMLElement | Node): Node {
+      if (this._current === undefined) throw new Error('Node not set!')
 
-     return this
-  }
+      let childNode = node instanceof Node ? node.root() : node
 
-  root(): HTMLElement {
-     if (this._root === undefined) throw new Error('Root node not defined!')
+      this._current.appendChild(childNode)
 
-     return this._root
-  }
+      return this
+   }
 
- get id(): string | null {
-     if (this._current === undefined) throw new Error('Node not set!')
+   gotoRoot(): Node {
+      this._current = this._root;
 
-     return this._current.getAttribute('id')
-  }
+      return this
+   }
+
+   root(): HTMLElement {
+      if (this._root === undefined) throw new Error('Root node not defined!')
+
+      return this._root
+   }
+
+   get id(): string | null {
+      if (this._current === undefined) throw new Error('Node not set!')
+
+      return this._current.getAttribute('id')
+   }
+
+   set innerHTML(html: string) {
+      if (this._current === undefined) throw new Error('Node not set!')
+
+      this._current.innerHTML = html
+   }
 }
