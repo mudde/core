@@ -3,7 +3,8 @@ Easy node creation in javascript
 
 # todo
 * add Mustache templates
-* 
+* add tests
+* add more functionality in bootstrap node
 * documentation
 
 # example
