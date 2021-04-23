@@ -79,10 +79,26 @@ define("node", ["require", "exports"], function (require, exports) {
         Node.prototype.a = function (tagName, attributes, text, setCurrent) {
             return this.appendNode(tagName, attributes, text, setCurrent);
         };
+        Node.prototype.prependNode_ = function (tagName, attributes, text) {
+            return this.prependNode(tagName, attributes, text, true);
+        };
+        Node.prototype.prependNode = function (tagName, attributes, text, setCurrent) {
+            if (this._current === undefined)
+                throw new Error('Node not set!');
+            var firstChild = this._current.firstChild;
+            if (firstChild) {
+                var HTMLElement_1 = this._current.insertBefore(this.createNode(tagName, attributes, text), firstChild);
+                HTMLElement_1.innerText = text ? text : '';
+                if (setCurrent === true) {
+                    this._current = HTMLElement_1;
+                }
+            }
+            return this;
+        };
         Node.prototype.appendNode = function (tagName, attributes, text, setCurrent) {
             if (this._current === undefined)
                 throw new Error('Node not set!');
-            var HTMLElement = this._current.appendChild(this.createNode(tagName, attributes));
+            var HTMLElement = this._current.appendChild(this.createNode(tagName, attributes, text));
             HTMLElement.innerText = text ? text : '';
             if (setCurrent === true) {
                 this._current = HTMLElement;
@@ -128,7 +144,7 @@ define("node", ["require", "exports"], function (require, exports) {
             var childNode = node instanceof Node ? node.root() : node;
             var firstChild = this._current.firstChild;
             if (firstChild) {
-                this._current = firstChild.insertBefore(childNode, null);
+                firstChild.insertBefore(childNode, null);
             }
             return this;
         };

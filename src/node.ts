@@ -70,10 +70,32 @@ export default class Node {
       return this.appendNode(tagName, attributes, text, setCurrent)
    }
 
+   prependNode_(tagName: string, attributes?: any, text?: string): Node {
+      return this.prependNode(tagName, attributes, text, true)
+   }
+
+   prependNode(tagName: string, attributes?: any, text?: string, setCurrent?: boolean): Node {
+      if (this._current === undefined) throw new Error('Node not set!')
+
+      let firstChild = this._current.firstChild;
+
+      if (firstChild) {
+         let HTMLElement = this._current.insertBefore(this.createNode(tagName, attributes, text), firstChild)
+
+         HTMLElement.innerText = text ? text : ''
+
+         if (setCurrent === true) {
+            this._current = HTMLElement
+         }
+      }
+
+      return this
+   }
+
    appendNode(tagName: string, attributes?: any, text?: string, setCurrent?: boolean): Node {
       if (this._current === undefined) throw new Error('Node not set!')
 
-      let HTMLElement = this._current.appendChild(this.createNode(tagName, attributes))
+      let HTMLElement = this._current.appendChild(this.createNode(tagName, attributes,text))
 
       HTMLElement.innerText = text ? text : ''
 
@@ -135,7 +157,7 @@ export default class Node {
       let firstChild = this._current.firstChild;
 
       if (firstChild) {
-         this._current = firstChild.insertBefore(childNode, null)
+         firstChild.insertBefore(childNode, null)
       }
 
       return this

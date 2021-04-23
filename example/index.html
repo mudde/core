@@ -42,15 +42,19 @@
                .appendElement_('a', { 'href': 'http://www.google.com' }, 'link')</code>
                   <xmp id='demo3'></xmp></pre>
 
+   <pre><code>
+                     
+                  </code>
+                        <xmp id='demo4'></xmp></pre>
+
    <script src="./script/require.js"></script>
    <script src="../dist/node.js"></script>
    <script>
-      var node, olaf
       require(['node'], function (Node) {
-         node = new Node.default('div', { 'class': 'class-test' })
-         olaf = Node
+         let node = new Node.default('div', { 'class': 'class-test' })
          document.getElementById("demo").innerHTML = node.toHTML()
 
+         node = new Node.default('div', { 'class': 'class-test' })
          node
             .appendNode('a', { 'href': 'http://www.google.com' }, 'link')
             .appendNode('p', { 'class': 'bold' })
@@ -63,6 +67,12 @@
             .prependNode_('p', { 'class': 'bold' })
             .appendNode_('a', { 'href': 'http://www.google.com' }, 'link')
          document.getElementById("demo3").innerHTML = node.toHTML()
+
+         node = new Node.default('div', { 'class': 'class-test' })
+         node
+            .appendNode_('ul', { 'class': 'nav' })
+            .appendTemplate('li', { 'value': '{{{ data.id }}}' }, 'For {{{ data.name }}}', data)
+         document.getElementById("demo4").innerHTML = node.toHTML()
       });
    </script>
 </body>
