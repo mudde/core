@@ -10,7 +10,7 @@ export default class Node {
       this.setDocument()
 
       this._root = this._current = tagName[0] === '#'
-         ? this.getNode(tagName)
+         ? this.getNodeById(tagName)
          : this.createNode(tagName, attributes, text)
    }
 
@@ -18,14 +18,14 @@ export default class Node {
       if (typeof document === 'undefined') {
          var dom = new jsdom.JSDOM('<!DOCTYPE html><body></body>')
          if (!dom) throw new Error('Dom not set!')
-
-         this._document = dom.window.document
-      } else {
-         this._document = document
+         
+         var document = dom.window.document
       }
+
+      this._document = document
    }
 
-   private getNode(nodeId: string): HTMLElement {
+   private getNodeById(nodeId: string): HTMLElement {
       let document = this._document
       if (!document) throw new Error("Document not set!")
 
