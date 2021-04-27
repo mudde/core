@@ -1,18 +1,49 @@
+const jsdom = require("../node_modules/jsdom")
+
 export default class Node {
 
    private _root?: HTMLElement
    private _current?: HTMLElement
+   private _document?: Document
 
    constructor(tagName: string, attributes?: any, text?: string) {
-      this._root = this._current = this.createNode(tagName, attributes, text)
+      this.setDocument()
+
+      this._root = this._current = tagName[0] === '#'
+         ? this.getNode(tagName)
+         : this.createNode(tagName, attributes, text)
+   }
+
+   private setDocument() {
+      if (typeof document === 'undefined') {
+         var dom = new jsdom.JSDOM('<!DOCTYPE html><body></body>')
+         if (!dom) throw new Error('Dom not set!')
+
+         this._document = dom.window.document
+      } else {
+         this._document = document
+      }
+   }
+
+   private getNode(nodeId: string): HTMLElement {
+      let document = this._document
+      if (!document) throw new Error("Document not set!")
+
+      let element = document.getElementById(nodeId)
+      if (!element) throw new Error('Element not found by id!')
+
+      return element
    }
 
    private createNode(tagName: string, attributes?: any, text?: string): HTMLElement {
+      let document = this._document
+      if (!document) throw new Error("Document not set!")
+
       let node = document.createElement(tagName)
 
       if (attributes) {
          for (let key in attributes) {
-            let value = attributes[key];
+            let value = attributes[key]
             node.setAttribute(key, value)
          }
       }
@@ -77,7 +108,7 @@ export default class Node {
    prependNode(tagName: string, attributes?: any, text?: string, setCurrent?: boolean): Node {
       if (this._current === undefined) throw new Error('Node not set!')
 
-      let firstChild = this._current.firstChild;
+      let firstChild = this._current.firstChild
 
       if (firstChild) {
          let HTMLElement = this._current.insertBefore(this.createNode(tagName, attributes, text), firstChild)
@@ -95,7 +126,7 @@ export default class Node {
    appendNode(tagName: string, attributes?: any, text?: string, setCurrent?: boolean): Node {
       if (this._current === undefined) throw new Error('Node not set!')
 
-      let HTMLElement = this._current.appendChild(this.createNode(tagName, attributes,text))
+      let HTMLElement = this._current.appendChild(this.createNode(tagName, attributes, text))
 
       HTMLElement.innerText = text ? text : ''
 
@@ -118,7 +149,6 @@ export default class Node {
       if (this._root === undefined) throw new Error('Node not set!')
 
       let root: HTMLElement = this._root
-
       return outerHTML ? root.outerHTML : root.innerHTML
    }
 
@@ -128,7 +158,7 @@ export default class Node {
       let node = this._current
 
       for (let key in attributes) {
-         let value = attributes[key];
+         let value = attributes[key]
 
          node.setAttribute(key, value)
       }
@@ -147,14 +177,14 @@ export default class Node {
    }
 
    _(): Node {                   //  Alias for method 'parent'
-      return this.parent();
+      return this.parent()
    }
 
    prependElement(node: HTMLElement | Node): Node {
       if (this._current === undefined) throw new Error('Node not set!')
 
       let childNode = node instanceof Node ? node.root() : node
-      let firstChild = this._current.firstChild;
+      let firstChild = this._current.firstChild
 
       if (firstChild) {
          firstChild.insertBefore(childNode, null)
@@ -167,7 +197,7 @@ export default class Node {
       if (this._current === undefined) throw new Error('Node not set!')
 
       let childNode = node instanceof Node ? node.root() : node
-      let firstChild = this._current.firstChild;
+      let firstChild = this._current.firstChild
 
       if (firstChild) {
          this._current = firstChild.insertBefore(childNode, null)
@@ -197,7 +227,7 @@ export default class Node {
    }
 
    gotoRoot(): Node {
-      this._current = this._root;
+      this._current = this._root
 
       return this
    }

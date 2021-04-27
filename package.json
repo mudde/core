@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/mocha/bin/mocha --reporter spec --require node_modules/ts-node/register --require node_modules/amd-loader/  test/**/*.ts"
   },
   "repository": {
     "type": "git",
@@ -16,10 +16,24 @@
   "keywords": [
     "node"
   ],
-  "author": "olaf mudde",
+  "author": "olaf mudde <olaf.mudde@xs4all.nl>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/omudde/node/issues"
   },
-  "homepage": "https://github.com/omudde/node#readme"
+  "homepage": "https://github.com/omudde/node#readme",
+  "devDependencies": {
+    "@types/chai": "^4.2.17",
+    "@types/mocha": "^8.2.2",
+    "amd-loader": "^0.0.8",
+    "chai": "^4.3.4",
+    "mocha": "^8.3.2",
+    "ts-loader": "^9.1.1",
+    "ts-node": "^9.1.1",
+    "jsdom": "^16.5.3"
+  },
+  "dependencies": {
+    "requirejs": "^2.3.6",
+    "typescript": "^4.2.4"
+  }
 }
