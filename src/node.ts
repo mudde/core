@@ -1,4 +1,9 @@
-const jsdom = require("../node_modules/jsdom")
+if (typeof document === 'undefined') {
+   const jsdom = require("../node_modules/jsdom")
+   var dom = new jsdom.JSDOM('<!DOCTYPE html><body></body>')
+   if (!dom) throw new Error('Dom not set!')
+   const document = dom.window.document
+}
 
 export default class Node {
 
@@ -7,22 +12,11 @@ export default class Node {
    private _document?: Document
 
    constructor(tagName: string, attributes?: any, text?: string) {
-      this.setDocument()
+      this._document = document
 
       this._root = this._current = tagName[0] === '#'
          ? this.getNodeById(tagName)
          : this.createNode(tagName, attributes, text)
-   }
-
-   private setDocument() {
-      if (typeof document === 'undefined') {
-         var dom = new jsdom.JSDOM('<!DOCTYPE html><body></body>')
-         if (!dom) throw new Error('Dom not set!')
-
-         var document = dom.window.document
-      }
-
-      this._document = document
    }
 
    private getNodeById(nodeId: string): HTMLElement {
@@ -44,6 +38,7 @@ export default class Node {
       if (attributes) {
          for (let key in attributes) {
             let value = attributes[key]
+
             node.setAttribute(key, value)
          }
       }

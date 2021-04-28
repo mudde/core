@@ -28,11 +28,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 define("node", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    if (typeof document === 'undefined') {
+        var jsdom = require("../node_modules/jsdom");
+        var dom = new jsdom.JSDOM('<!DOCTYPE html><body></body>');
+        if (!dom)
+            throw new Error('Dom not set!');
+        var document_1 = dom.window.document;
+    }
     var Node = (function () {
         function Node(tagName, attributes, text) {
-            this._root = this._current = this.createNode(tagName, attributes, text);
+            this._document = document;
+            this._root = this._current = tagName[0] === '#'
+                ? this.getNodeById(tagName)
+                : this.createNode(tagName, attributes, text);
         }
+        Node.prototype.getNodeById = function (nodeId) {
+            var document = this._document;
+            if (!document)
+                throw new Error("Document not set!");
+            var element = document.getElementById(nodeId);
+            if (!element)
+                throw new Error('Element not found by id!');
+            return element;
+        };
         Node.prototype.createNode = function (tagName, attributes, text) {
+            var document = this._document;
+            if (!document)
+                throw new Error("Document not set!");
             var node = document.createElement(tagName);
             if (attributes) {
                 for (var key in attributes) {
@@ -49,7 +71,7 @@ define("node", ["require", "exports"], function (require, exports) {
             if (this._current === undefined)
                 throw new Error('Node not set!');
             var currentClass = this._current.className;
-            this._current.className = currentClass + " " + className;
+            this._current.setAttribute('class', (currentClass + " " + className).trimLeft());
             return this;
         };
         Node.prototype.getElementById = function (id) {
