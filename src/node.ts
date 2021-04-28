@@ -18,7 +18,7 @@ export default class Node {
       if (typeof document === 'undefined') {
          var dom = new jsdom.JSDOM('<!DOCTYPE html><body></body>')
          if (!dom) throw new Error('Dom not set!')
-         
+
          var document = dom.window.document
       }
 
@@ -60,7 +60,7 @@ export default class Node {
 
       let currentClass = this._current.className
 
-      this._current.className = `${currentClass} ${className}`
+      this._current.setAttribute('class', `${currentClass} ${className}`.trimLeft())
 
       return this
    }
