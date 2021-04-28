@@ -1,5 +1,5 @@
 {
-  "name": "omuddenode",
+  "name": "mudde-node",
   "version": "1.0.0",
   "description": "Easy node creation in javascript",
   "main": "dist/node.js",
@@ -11,7 +11,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/omudde/node.git"
+    "url": "git+https://github.com/omudde/node.git",
+    "path": "/mudde/node"
   },
   "keywords": [
     "node"
