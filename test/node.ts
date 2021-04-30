@@ -1,5 +1,9 @@
 import Node from "../src/node"
 import * as chai from 'chai';
+const jsdom = require("../node_modules/jsdom")
+var dom = new jsdom.JSDOM('<!DOCTYPE html><body></body>')
+if (!dom) throw new Error('Dom not set!')
+const document = dom.window.document
 
 const expect = chai.expect;
 describe('My Node library', () => {

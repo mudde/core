@@ -28,13 +28,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 define("node", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    if (typeof document === 'undefined') {
-        var jsdom = require("../node_modules/jsdom");
-        var dom = new jsdom.JSDOM('<!DOCTYPE html><body></body>');
-        if (!dom)
-            throw new Error('Dom not set!');
-        var document_1 = dom.window.document;
-    }
     var Node = (function () {
         function Node(tagName, attributes, text) {
             this._document = document;

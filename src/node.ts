@@ -1,10 +1,3 @@
-if (typeof document === 'undefined') {
-   const jsdom = require("../node_modules/jsdom")
-   var dom = new jsdom.JSDOM('<!DOCTYPE html><body></body>')
-   if (!dom) throw new Error('Dom not set!')
-   const document = dom.window.document
-}
-
 export default class Node {
 
    private _root?: HTMLElement
