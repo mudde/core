@@ -1,18 +1,24 @@
 {
    "compilerOptions": {
       "module": "AMD",
-      "target": "es5",
+      "target": "ES2015",
       "lib": [
          "ES2015",
          "DOM"
       ],
+      "moduleResolution": "Node",
       "strict": true,
       "noImplicitAny": false,
-      "esModuleInterop": true,
       "removeComments": true,
-      "preserveConstEnums": true,
+      "skipLibCheck": true,
+      "inlineSourceMap": true,
       "outFile": "./dist/node.js",
-      "sourceMap": true,
+      "baseUrl": "./src/Mudde",
+      "paths": {
+         "Mudde/*": [
+            "./*"
+         ]
+      },
    },
    "include": [
       "src/**/*"

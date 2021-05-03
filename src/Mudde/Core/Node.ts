@@ -1,3 +1,5 @@
+///<amd-module name='Mudde/Core/Node'/>
+
 export default class Node {
 
    private _root?: HTMLElement
