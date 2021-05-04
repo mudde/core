@@ -6,8 +6,8 @@ export default class Node {
    private _current?: HTMLElement
    private _document?: Document
 
-   constructor(tagName: string, attributes?: any, text?: string) {
-      this._document = document
+   constructor(tagName: string, attributes?: any, text?: string, documentx ?: Document) {
+      this._document = typeof document == 'undefined' ? documentx : document
 
       this._root = this._current = tagName[0] === '#'
          ? this.getNodeById(tagName)
@@ -51,6 +51,16 @@ export default class Node {
       let currentClass = this._current.className
 
       this._current.setAttribute('class', `${currentClass} ${className}`.trimLeft())
+
+      return this
+   }
+
+   removeClass(className: string): Node {
+      if (this._current === undefined) throw new Error('Node not set!')
+
+      let currentClass = ' ' + this._current.className + ' '
+
+      this._current.setAttribute('class', currentClass.replace(' ' + className+ ' ', ' ').trim())
 
       return this
    }
