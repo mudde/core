@@ -1,4 +1,4 @@
-///<amd-module name='Mudde/Core/Node'/>
+////<amd-module name='Mudde/Core/Node'/>
 
 export default class Node {
 
@@ -6,11 +6,11 @@ export default class Node {
    private _current?: HTMLElement
    private _document?: Document
 
-   constructor(tagName: string, attributes?: any, text?: string, documentx ?: Document) {
-      this._document = typeof document == 'undefined' ? documentx : document
+   constructor(tagName: string, attributes?: any, text?: string, documentX ?: Document) {
+      this._document = typeof document == 'undefined' ? documentX : document
 
       this._root = this._current = tagName[0] === '#'
-         ? this.getNodeById(tagName)
+         ? this.getNodeById(tagName.substr(1))
          : this.createNode(tagName, attributes, text)
    }
 
@@ -112,8 +112,6 @@ export default class Node {
 
       if (firstChild) {
          let HTMLElement = this._current.insertBefore(this.createNode(tagName, attributes, text), firstChild)
-
-         HTMLElement.innerText = text ? text : ''
 
          if (setCurrent === true) {
             this._current = HTMLElement
