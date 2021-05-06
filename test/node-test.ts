@@ -9,7 +9,7 @@ const document = (new jsdom.JSDOM('<!DOCTYPE html><body></body>'))?.window.docum
 const expect = chai.expect;
 
 describe('My Node library', () => {
-   let testNode = new Node('div', { 'class': 'test' }, undefined, document)
+   var testNode = new Node('div', { 'class': 'test' }, undefined, document)
 
    it('can create an element', () => {
       expect(testNode.toHTML())
@@ -45,4 +45,20 @@ describe('My Node library', () => {
          .equal('<div class="test"><div class="test"><\/div><\/div>');
    });
 
+   it('can prepend a node. First goto the root node', () => {
+      testNode.gotoRoot().prependNode('a', { 'href':'#'}, 'Link')
+      expect(testNode.toHTML())
+         .to
+         .equal('<div class="test"><a href="#"><\/a><div class="test"><\/div><\/div>');
+   });
+
+   var testNode2 = new Node('div', { 'class': 'test' }, undefined, document)
+
+   it('can you add a sibling to a node', () => {
+      testNode2.addSibling('a', { 'href': '#' }, 'Link')
+
+      expect(testNode2.toHTML())
+         .to
+         .equal('<div class="test"><\/div><a href="#">Link<\/a>');
+   });
 });

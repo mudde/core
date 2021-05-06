@@ -1,4 +1,4 @@
-///<amd-module name='Mudde/Core/Node'/>
+////<amd-module name='Mudde/Core/Node'/>
 
 export default class Node {
 
@@ -6,7 +6,8 @@ export default class Node {
    private _current?: HTMLElement
    private _document?: Document
 
-   constructor(tagName: string, attributes?: any, text?: string, documentX ?: Document) {
+   constructor(tagName: string, attributes?: any, text?: string, documentX?: Document) {
+      // DocumentFragment for partial HTML <radio id='1'></radio><label>Example</label
       this._document = typeof document == 'undefined' ? documentX : document
 
       this._root = this._current = tagName[0] === '#'
@@ -45,6 +46,17 @@ export default class Node {
       return node
    }
 
+   addSibling(tagName: string, attributes?: any, text?: string): HTMLElement {
+      if (this._current === undefined) throw new Error('Node not set!')
+
+      let node = this.createNode(tagName, attributes, text)
+      let parent = this._current.parentNode;
+
+      parent?.insertBefore(node, this._current)
+
+      return node
+   }
+
    addClass(className: string): Node {
       if (this._current === undefined) throw new Error('Node not set!')
 
@@ -60,7 +72,7 @@ export default class Node {
 
       let currentClass = ' ' + this._current.className + ' '
 
-      this._current.setAttribute('class', currentClass.replace(' ' + className+ ' ', ' ').trim())
+      this._current.setAttribute('class', currentClass.replace(' ' + className + ' ', ' ').trim())
 
       return this
    }
@@ -91,6 +103,12 @@ export default class Node {
       return element
    }
 
+   hasElementById(id: string): boolean{
+      if (this._document === undefined) throw new Error('Document not set!')
+
+      return this._document.getElementById(id) !== null
+   }
+   
    hasElementByClass(className: string): boolean {
       if (this._root === undefined) throw new Error('Node not set!')
 
