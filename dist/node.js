@@ -1,4 +1,4 @@
-define("Node", ["require", "exports"], function (require, exports) {
+define("Mudde/Core/Node", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     class Node {
@@ -200,7 +200,7 @@ define("Node", ["require", "exports"], function (require, exports) {
     }
     exports.default = Node;
 });
-define("Mudde/Core/BsNode", ["require", "exports", "Node"], function (require, exports, Node_1) {
+define("Mudde/Core/BsNode", ["require", "exports", "Mudde/Core/Node"], function (require, exports, Node_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     class BsNode extends Node_1.default {

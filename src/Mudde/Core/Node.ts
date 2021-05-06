@@ -1,4 +1,4 @@
-////<amd-module name='Mudde/Core/Node'/>
+///<amd-module name='Mudde/Core/Node'/>
 
 export default class Node {
 
@@ -108,7 +108,7 @@ export default class Node {
 
       return this._document.getElementById(id) !== null
    }
-   
+
    hasElementByClass(className: string): boolean {
       if (this._root === undefined) throw new Error('Node not set!')
 
