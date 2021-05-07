@@ -77,6 +77,13 @@ export default class Node {
       return this
    }
 
+
+   getAttribute(name: string): string | null {
+      if (this._current === undefined) throw new Error('Node not set!')
+
+      return this._current.getAttribute(name)
+   }
+
    getElementById(id: string): Node {
       let element = document.getElementById(id)
 
@@ -103,7 +110,13 @@ export default class Node {
       return element
    }
 
-   hasElementById(id: string): boolean{
+   hasAttribute(name: string): boolean {
+      if (this._current === undefined) throw new Error('Node not set!')
+
+      return this._current.hasAttribute(name)
+   }
+
+   hasElementById(id: string): boolean {
       if (this._document === undefined) throw new Error('Document not set!')
 
       return this._document.getElementById(id) !== null
