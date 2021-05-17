@@ -5,10 +5,10 @@ export default class Node {
    private _root?: HTMLElement
    private _current?: HTMLElement
    private _document?: Document
+   private _idSearch: HTMLElement[] = []
 
    constructor(tagName: string, attributes?: any, text?: string, documentX?: Document) {
-      // DocumentFragment for partial HTML <radio id='1'></radio><label>Example</label
-      this._document = typeof document == 'undefined' ? documentX : document
+      this._document = typeof document === 'undefined' ? documentX : document
 
       this._root = this._current = tagName[0] === '#'
          ? this.getNodeById(tagName.substr(1))
@@ -35,6 +35,10 @@ export default class Node {
          for (let key in attributes) {
             let value = attributes[key]
 
+            if (key === 'id') {
+               this._idSearch[value] = node
+            }
+
             node.setAttribute(key, value)
          }
       }
@@ -55,6 +59,19 @@ export default class Node {
       parent?.insertBefore(node, this._current)
 
       return node
+   }
+
+   addSiblingElement(node: HTMLElement | Node | null): Node {
+      if (node === null) return this
+      if (this._current === undefined) throw new Error('Node not set!')
+
+      let newNode = node instanceof Node ? node.root() : node
+      let parent = this._current.parentNode;
+      if (parent === null) console.info(this._current)
+
+      parent?.insertBefore(newNode, this._current)
+
+      return this
    }
 
    addClass(className: string): Node {
@@ -85,10 +102,8 @@ export default class Node {
    }
 
    getElementById(id: string): Node {
-      let element = document.getElementById(id)
-
-      if (element) {
-         this._current = element
+      if (id in this._idSearch) {
+         this._current = this._idSearch[id]
       }
 
       return this
@@ -189,6 +204,10 @@ export default class Node {
       for (let key in attributes) {
          let value = attributes[key]
 
+         if (key === 'id') {
+            this._idSearch[value] = node
+         }
+
          node.setAttribute(key, value)
       }
 
@@ -209,7 +228,8 @@ export default class Node {
       return this.parent()
    }
 
-   prependElement(node: HTMLElement | Node): Node {
+   prependElement(node: HTMLElement | Node | null): Node {
+      if (node === null) return this
       if (this._current === undefined) throw new Error('Node not set!')
 
       let childNode = node instanceof Node ? node.root() : node
@@ -222,8 +242,13 @@ export default class Node {
       return this
    }
 
-   prependElement_(node: HTMLElement | Node): Node {
+   prependElement_(node: HTMLElement | Node | null): Node {
+      if (node === null) return this
       if (this._current === undefined) throw new Error('Node not set!')
+
+      if (node instanceof Node) {
+         this._idSearch.push(...node.idSearch)
+      }
 
       let childNode = node instanceof Node ? node.root() : node
       let firstChild = this._current.firstChild
@@ -235,7 +260,8 @@ export default class Node {
       return this
    }
 
-   appendElement(node: HTMLElement | Node): Node {
+   appendElement(node: HTMLElement | Node | null): Node {
+      if (node === null) return this
       if (this._current === undefined) throw new Error('Node not set!')
 
       let childNode = node instanceof Node ? node.root() : node
@@ -245,7 +271,8 @@ export default class Node {
       return this
    }
 
-   appendElement_(node: HTMLElement | Node): Node {
+   appendElement_(node: HTMLElement | Node | null): Node {
+      if (node === null) return this
       if (this._current === undefined) throw new Error('Node not set!')
 
       let childNode = node instanceof Node ? node.root() : node
@@ -277,5 +304,9 @@ export default class Node {
       if (this._current === undefined) throw new Error('Node not set!')
 
       this._current.innerHTML = html
+   }
+
+   get idSearch(): HTMLElement[] {
+      return this._idSearch
    }
 }
