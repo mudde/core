@@ -46,7 +46,7 @@ describe('My Node library', () => {
    });
 
    it('can prepend a node. First goto the root node', () => {
-      testNode.gotoRoot().prependNode('a', { 'href':'#'}, 'Link')
+      testNode.gotoRoot().prependNode('a', { 'href': '#' }, 'Link')
       expect(testNode.toHTML())
          .to
          .equal('<div class="test"><a href="#"><\/a><div class="test"><\/div><\/div>');
@@ -55,10 +55,21 @@ describe('My Node library', () => {
    var testNode2 = new Node('div', { 'class': 'test' }, undefined, document)
 
    it('can you add a sibling to a node', () => {
+      testNode2.appendNode_('a', { 'href': '#' }, 'Link')
       testNode2.addSibling('a', { 'href': '#' }, 'Link')
 
       expect(testNode2.toHTML())
          .to
-         .equal('<div class="test"><\/div><a href="#">Link<\/a>');
+         .equal('<div class="test"><a href="#"><\/a><a href="#"><\/a><\/div>');
+   });
+
+   var testNode3 = new Node('div', { 'class': 'test' }, undefined, document)
+   var testNode4 = new Node('a', { 'href': '#', 'id': 'link' }, 'Link', document)
+   testNode3.appendElement(testNode4)
+
+   it('can you add search an element by id in generated HTML', () => {
+      expect(testNode3.getElementById('link').id)
+         .to
+         .equal('link');
    });
 });

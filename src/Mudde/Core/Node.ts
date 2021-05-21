@@ -1,4 +1,4 @@
-///<amd-module name='Mudde/Core/Node'/>
+////<amd-module name='Mudde/Core/Node'/>
 
 export default class Node {
 
@@ -8,7 +8,9 @@ export default class Node {
    private _idSearch: HTMLElement[] = []
 
    constructor(tagName: string, attributes?: any, text?: string, documentX?: Document) {
-      this._document = typeof document === 'undefined' ? documentX : document
+      this._document = typeof document === 'undefined'
+         ? documentX
+         : document
 
       this._root = this._current = tagName[0] === '#'
          ? this.getNodeById(tagName.substr(1))
@@ -16,9 +18,7 @@ export default class Node {
    }
 
    private getNodeById(nodeId: string): HTMLElement {
-      let document = this._document
-      if (!document) throw new Error("Document not set!")
-
+      let document = this.document
       let element = document.getElementById(nodeId)
       if (!element) throw new Error('Element not found by id!')
 
@@ -26,9 +26,7 @@ export default class Node {
    }
 
    private createNode(tagName: string, attributes?: any, text?: string): HTMLElement {
-      let document = this._document
-      if (!document) throw new Error("Document not set!")
-
+      let document = this.document
       let node = document.createElement(tagName)
 
       if (attributes) {
@@ -50,55 +48,69 @@ export default class Node {
       return node
    }
 
-   addSibling(tagName: string, attributes?: any, text?: string): HTMLElement {
-      if (this._current === undefined) throw new Error('Node not set!')
+   moveInNode(callable: CallableFunction): Node {
+      let current: HTMLElement = this._current ? this._current : this.root
+      let newNode = callable(current)
 
+      this.addSiblingNode(newNode)
+
+      return this;
+   }
+
+   addSibling(tagName: string, attributes?: any, text?: string): Node {
       let node = this.createNode(tagName, attributes, text)
-      let parent = this._current.parentNode;
+      let parent = this.current.parentNode;
 
-      parent?.insertBefore(node, this._current)
+      parent?.insertBefore(node, this.current)
 
-      return node
+      return this
+   }
+
+   addSiblingNode(node: Node): Node {
+      let parent = this.current.parentNode;
+
+      parent?.insertBefore(node.root, this.current)
+
+      return this
    }
 
    addSiblingElement(node: HTMLElement | Node | null): Node {
       if (node === null) return this
-      if (this._current === undefined) throw new Error('Node not set!')
 
-      let newNode = node instanceof Node ? node.root() : node
-      let parent = this._current.parentNode;
-      if (parent === null) console.info(this._current)
+      let newNode = this.getHTMLElement(node)
+      let parent = this.current.parentNode;
+      if (parent === null) console.info(this.current)
 
-      parent?.insertBefore(newNode, this._current)
+      parent?.insertBefore(newNode, this.current)
 
       return this
    }
 
    addClass(className: string): Node {
-      if (this._current === undefined) throw new Error('Node not set!')
+      let currentClass = this.current.className
 
-      let currentClass = this._current.className
-
-      this._current.setAttribute('class', `${currentClass} ${className}`.trimLeft())
+      this.current.setAttribute('class', `${currentClass} ${className}`.trimLeft())
 
       return this
    }
 
    removeClass(className: string): Node {
-      if (this._current === undefined) throw new Error('Node not set!')
+      let currentClass = ' ' + this.current.className + ' '
 
-      let currentClass = ' ' + this._current.className + ' '
-
-      this._current.setAttribute('class', currentClass.replace(' ' + className + ' ', ' ').trim())
+      this.current.setAttribute('class', currentClass.replace(' ' + className + ' ', ' ').trim())
 
       return this
    }
 
 
-   getAttribute(name: string): string | null {
-      if (this._current === undefined) throw new Error('Node not set!')
+   clear() {
+      let root = this._current = this.root
 
-      return this._current.getAttribute(name)
+      root.innerHTML = ''
+   }
+
+   getAttribute(name: string): string | null {
+      return this.current.getAttribute(name)
    }
 
    getElementById(id: string): Node {
@@ -110,37 +122,27 @@ export default class Node {
    }
 
    getElementByTagName(tagName: string): HTMLCollectionOf<Element> {
-      if (this._root === undefined) throw new Error('Node not set!')
-
-      let element = this._root.getElementsByTagName(tagName)
+      let element = this.root.getElementsByTagName(tagName)
 
       return element
    }
 
    getElementByClass(className: string): HTMLCollectionOf<Element> {
-      if (this._root === undefined) throw new Error('Node not set!')
-
-      let element = this._root.getElementsByClassName(className)
+      let element = this.root.getElementsByClassName(className)
 
       return element
    }
 
    hasAttribute(name: string): boolean {
-      if (this._current === undefined) throw new Error('Node not set!')
-
-      return this._current.hasAttribute(name)
+      return this.current.hasAttribute(name)
    }
 
    hasElementById(id: string): boolean {
-      if (this._document === undefined) throw new Error('Document not set!')
-
-      return this._document.getElementById(id) !== null
+      return id in this._idSearch
    }
 
    hasElementByClass(className: string): boolean {
-      if (this._root === undefined) throw new Error('Node not set!')
-
-      return this._root.getElementsByClassName(className).length !== 0
+      return this.root.getElementsByClassName(className).length !== 0
    }
 
    a(tagName: string, attributes?: any, text?: string, setCurrent?: boolean): Node {
@@ -152,12 +154,10 @@ export default class Node {
    }
 
    prependNode(tagName: string, attributes?: any, text?: string, setCurrent?: boolean): Node {
-      if (this._current === undefined) throw new Error('Node not set!')
-
-      let firstChild = this._current.firstChild
+      let firstChild = this.current.firstChild
 
       if (firstChild) {
-         let HTMLElement = this._current.insertBefore(this.createNode(tagName, attributes, text), firstChild)
+         let HTMLElement = this.current.insertBefore(this.createNode(tagName, attributes, text), firstChild)
 
          if (setCurrent === true) {
             this._current = HTMLElement
@@ -167,10 +167,9 @@ export default class Node {
       return this
    }
 
-   appendNode(tagName: string, attributes?: any, text?: string, setCurrent?: boolean): Node {
-      if (this._current === undefined) throw new Error('Node not set!')
-
-      let HTMLElement = this._current.appendChild(this.createNode(tagName, attributes, text))
+   appendNode(tagName: string, attributes?: any, text?: string, setCurrent: boolean = false): Node {
+      let newNode = this.createNode(tagName, attributes, text)
+      let HTMLElement = this.current.appendChild(newNode)
 
       HTMLElement.innerText = text ? text : ''
 
@@ -190,16 +189,12 @@ export default class Node {
    }
 
    toHTML(outerHTML: boolean = true): string {
-      if (this._root === undefined) throw new Error('Node not set!')
-
-      let root: HTMLElement = this._root
+      let root: HTMLElement = this.root
       return outerHTML ? root.outerHTML : root.innerHTML
    }
 
    setAttributes(attributes: any): Node {
-      if (this._current === undefined) throw new Error('Node not set!')
-
-      let node = this._current
+      let node = this.current
 
       for (let key in attributes) {
          let value = attributes[key]
@@ -215,11 +210,9 @@ export default class Node {
    }
 
    parent(): Node {
-      if (this._current === undefined) throw new Error('Node not set!')
+      let parent = this.current.parentElement
 
-      let parent = this._current.parentElement
-
-      this._current = parent === null ? this._current : parent
+      this._current = parent === null ? this.current : parent
 
       return this
    }
@@ -230,31 +223,27 @@ export default class Node {
 
    prependElement(node: HTMLElement | Node | null): Node {
       if (node === null) return this
-      if (this._current === undefined) throw new Error('Node not set!')
 
-      let childNode = node instanceof Node ? node.root() : node
-      let firstChild = this._current.firstChild
+      let childNode = this.getHTMLElement(node)
+      let firstChild = this.current.firstChild
 
       if (firstChild) {
-         firstChild.insertBefore(childNode, null)
+         this.current.insertBefore(childNode, firstChild)
       }
+
+      this._current = childNode
 
       return this
    }
 
    prependElement_(node: HTMLElement | Node | null): Node {
       if (node === null) return this
-      if (this._current === undefined) throw new Error('Node not set!')
 
-      if (node instanceof Node) {
-         this._idSearch.push(...node.idSearch)
-      }
-
-      let childNode = node instanceof Node ? node.root() : node
-      let firstChild = this._current.firstChild
+      let childNode = this.getHTMLElement(node)
+      let firstChild = this.current.firstChild
 
       if (firstChild) {
-         this._current = firstChild.insertBefore(childNode, null)
+         this.current.insertBefore(childNode, firstChild)
       }
 
       return this
@@ -262,51 +251,74 @@ export default class Node {
 
    appendElement(node: HTMLElement | Node | null): Node {
       if (node === null) return this
-      if (this._current === undefined) throw new Error('Node not set!')
 
-      let childNode = node instanceof Node ? node.root() : node
+      let childNode = this.getHTMLElement(node)
 
-      this._current = this._current.appendChild(childNode)
+      this._current = this.current.appendChild(childNode)
 
       return this
    }
 
+   getHTMLElement(node: HTMLElement | Node): HTMLElement {
+      if (!(node instanceof Node)) {
+         return node
+      }
+
+      let childIdNodes = node._idSearch
+
+      for (var key in childIdNodes) {
+         this._idSearch[key] = childIdNodes[key]
+      }
+
+      return node.root
+   }
+
    appendElement_(node: HTMLElement | Node | null): Node {
       if (node === null) return this
-      if (this._current === undefined) throw new Error('Node not set!')
 
-      let childNode = node instanceof Node ? node.root() : node
+      let childNode = this.getHTMLElement(node)
 
-      this._current.appendChild(childNode)
+      this.current.appendChild(childNode)
 
       return this
    }
 
    gotoRoot(): Node {
-      this._current = this._root
+      this._current = this.root
 
       return this
    }
 
-   root(): HTMLElement {
+   get root(): HTMLElement {
       if (this._root === undefined) throw new Error('Root node not defined!')
 
       return this._root
    }
 
    get id(): string | null {
-      if (this._current === undefined) throw new Error('Node not set!')
-
-      return this._current.getAttribute('id')
+      return this.current.getAttribute('id')
    }
 
    set innerHTML(html: string) {
-      if (this._current === undefined) throw new Error('Node not set!')
-
-      this._current.innerHTML = html
+      this.current.innerHTML = html
    }
 
    get idSearch(): HTMLElement[] {
       return this._idSearch
    }
+
+   get current(): HTMLElement {
+      if (this._current === undefined) throw new Error('Current not set!');
+
+      return this._current
+   }
+
+
+   get document(): Document {
+      if (this._document === undefined) throw new Error('Document not set!');
+
+      return this._document
+   }
+
+
 }

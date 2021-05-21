@@ -4,5 +4,6 @@
 ┃    █   █   █ █   █ █   █  ┃
 ┃    █    ███  ████   ███   ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+- Search by id error's
 - More tests!
 - Readme update
