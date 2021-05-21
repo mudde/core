@@ -1,4 +1,4 @@
-////<amd-module name='Mudde/Core/Node'/>
+///<amd-module name='Mudde/Core/Node'/>
 
 export default class Node {
 
