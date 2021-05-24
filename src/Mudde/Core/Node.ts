@@ -49,39 +49,58 @@ export default class Node {
    }
 
    moveInNode(callable: CallableFunction): Node {
-      let current: HTMLElement = this._current ? this._current : this.root
-      let newNode = callable(current)
+      let current: HTMLElement = this.current
+      let tmpNode = this.document.createElement('div')
 
-      this.addSiblingNode(newNode)
+      current.replaceWith(tmpNode)
 
-      return this;
-   }
+      let newNodeRaw = callable(current)
+      let newNode = this.importElement(newNodeRaw)
 
-   addSibling(tagName: string, attributes?: any, text?: string): Node {
-      let node = this.createNode(tagName, attributes, text)
-      let parent = this.current.parentNode;
-
-      parent?.insertBefore(node, this.current)
+      tmpNode.replaceWith(newNode)
 
       return this
    }
 
-   addSiblingNode(node: Node): Node {
-      let parent = this.current.parentNode;
+   removeChild(node: Node | HTMLElement): Node {
+      let nodeX = node instanceof Node ? node.root : node
 
-      parent?.insertBefore(node.root, this.current)
+      this.current.removeChild(nodeX)
 
       return this
    }
 
-   addSiblingElement(node: HTMLElement | Node | null): Node {
-      if (node === null) return this
+   addSibling_(tagName: string, attributes?: any, text?: string): Node {
+      return this.addSibling(tagName, attributes, text, true)
+   }
 
-      let newNode = this.getHTMLElement(node)
+   addSibling(tagName: string, attributes?: any, text?: string, setCurrent: boolean = false): Node {
+      let newNode = this.createNode(tagName, attributes, text)
       let parent = this.current.parentNode;
-      if (parent === null) console.info(this.current)
 
       parent?.insertBefore(newNode, this.current)
+
+      if (setCurrent) {
+         this._current = newNode
+      }
+
+      return this
+   }
+
+   addSiblingNode_(node: Node): Node {
+      return this.addSiblingNode(node, true)
+   }
+
+   addSiblingNode(node: Node, setCurrent: boolean = false): Node {
+      let newNode = this.importElement(node)
+      let current = this.current
+      let parent = current.parentElement;
+
+      parent?.insertBefore(newNode, current)
+
+      if (setCurrent) {
+         this._current = newNode
+      }
 
       return this
    }
@@ -224,7 +243,7 @@ export default class Node {
    prependElement(node: HTMLElement | Node | null): Node {
       if (node === null) return this
 
-      let childNode = this.getHTMLElement(node)
+      let childNode = this.importElement(node)
       let firstChild = this.current.firstChild
 
       if (firstChild) {
@@ -239,7 +258,7 @@ export default class Node {
    prependElement_(node: HTMLElement | Node | null): Node {
       if (node === null) return this
 
-      let childNode = this.getHTMLElement(node)
+      let childNode = this.importElement(node)
       let firstChild = this.current.firstChild
 
       if (firstChild) {
@@ -252,14 +271,14 @@ export default class Node {
    appendElement(node: HTMLElement | Node | null): Node {
       if (node === null) return this
 
-      let childNode = this.getHTMLElement(node)
+      let childNode = this.importElement(node)
 
       this._current = this.current.appendChild(childNode)
 
       return this
    }
 
-   getHTMLElement(node: HTMLElement | Node): HTMLElement {
+   importElement(node: HTMLElement | Node): HTMLElement {
       if (!(node instanceof Node)) {
          return node
       }
@@ -276,7 +295,7 @@ export default class Node {
    appendElement_(node: HTMLElement | Node | null): Node {
       if (node === null) return this
 
-      let childNode = this.getHTMLElement(node)
+      let childNode = this.importElement(node)
 
       this.current.appendChild(childNode)
 
