@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "Easy node creation in javascript",
   "main": "dist/node.js",
+  "dependencies": {
+  },
   "directories": {
     "test": "test"
   },
@@ -24,6 +26,8 @@
   },
   "homepage": "https://github.com/omudde/node#readme",
   "devDependencies": {
+    "requirejs": "^2.3.6",
+    "typescript": "^4.2.4",
     "@types/chai": "^4.2.17",
     "@types/jsdom": "^16.2.10",
     "@types/mocha": "^8.2.2",
@@ -33,9 +37,5 @@
     "mocha": "^8.3.2",
     "ts-loader": "^9.1.1",
     "ts-node": "^9.1.1"
-  },
-  "dependencies": {
-    "requirejs": "^2.3.6",
-    "typescript": "^4.2.4"
   }
 }
