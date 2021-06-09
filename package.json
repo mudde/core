@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/omudde/node.git",
+    "url": "git+https://github.com/mudde/node.git",
     "path": "/mudde/node"
   },
   "keywords": [
@@ -22,9 +22,9 @@
   "author": "olaf mudde <olaf.mudde@xs4all.nl>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/omudde/node/issues"
+    "url": "https://github.com/mudde/node/issues"
   },
-  "homepage": "https://github.com/omudde/node#readme",
+  "homepage": "https://github.com/mudde/node#readme",
   "devDependencies": {
     "requirejs": "^2.3.6",
     "typescript": "^4.2.4",

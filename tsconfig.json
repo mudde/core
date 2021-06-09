@@ -1,6 +1,6 @@
 {
    "compilerOptions": {
-      "module": "AMD",
+      "module": "commonjs",
       "target": "ES2015",
       "lib": [
          "ES2015",
