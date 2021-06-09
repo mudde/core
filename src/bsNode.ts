@@ -1,6 +1,4 @@
-///<amd-module name='Mudde/Core/BsNode'/>
-
-import Node from "Mudde/Core/Node"
+import Node from "./Node"
 
 export default class BsNode extends Node {
 

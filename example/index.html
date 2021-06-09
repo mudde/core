@@ -213,33 +213,32 @@
    <xmp id='demo4' class='prettyprint'></xmp>
    </pre>
 
-   <script src="./script/require.js"></script>
-   <script src="../dist/node.js"></script>
+   <script>var exports = {};</script>
+   <script src="../dist/Node.js"></script>
    <script>
-      require(['node'], function (Node) {
-         let node = new Node.default('div', { 'class': 'class-test' })
-         document.getElementById("demo").innerHTML = node.toHTML()
+      var Node = exports
+      let node = new Node.default('div', { 'class': 'class-test' })
+      document.getElementById("demo").innerHTML = node.toHTML()
 
-         node = new Node.default('div', { 'class': 'class-test' })
-         node
-            .appendNode('a', { 'href': 'http://www.google.com' }, 'link')
-            .appendNode('p', { 'class': 'bold' })
-            .appendNode('a', { 'href': 'http://www.google.com' }, 'link')
-         document.getElementById("demo2").innerHTML = node.toHTML()
+      node = new Node.default('div', { 'class': 'class-test' })
+      node
+         .appendNode('a', { 'href': 'http://www.google.com' }, 'link')
+         .appendNode('p', { 'class': 'bold' })
+         .appendNode('a', { 'href': 'http://www.google.com' }, 'link')
+      document.getElementById("demo2").innerHTML = node.toHTML()
 
-         node = new Node.default('div', { 'class': 'class-test' })
-         node
-            .appendNode_('a', { 'href': 'http://www.google.com' }, 'link')
-            .prependNode_('p', { 'class': 'bold' })
-            .appendNode_('a', { 'href': 'http://www.google.com' }, 'link')
-         document.getElementById("demo3").innerHTML = node.toHTML()
+      node = new Node.default('div', { 'class': 'class-test' })
+      node
+         .appendNode_('a', { 'href': 'http://www.google.com' }, 'link')
+         .prependNode_('p', { 'class': 'bold' })
+         .appendNode_('a', { 'href': 'http://www.google.com' }, 'link')
+      document.getElementById("demo3").innerHTML = node.toHTML()
 
-         node = new Node.default('div', { 'class': 'class-test' })
-         node
-            .appendNode_('ul', { 'class': 'nav' })
-         // .appendTemplate('li', { 'value': '{{{ data.id }}}' }, 'For {{{ data.name }}}', data)
-         document.getElementById("demo4").innerHTML = node.toHTML()
-      });
+      node = new Node.default('div', { 'class': 'class-test' })
+      node
+         .appendNode_('ul', { 'class': 'nav' })
+      // .appendTemplate('li', { 'value': '{{{ data.id }}}' }, 'For {{{ data.name }}}', data)
+      document.getElementById("demo4").innerHTML = node.toHTML()
    </script>
    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 

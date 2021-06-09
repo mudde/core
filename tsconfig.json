@@ -1,7 +1,7 @@
 {
    "compilerOptions": {
       "module": "commonjs",
-      "target": "ES2015",
+      "target": "es5",
       "lib": [
          "ES2015",
          "DOM"
@@ -12,8 +12,8 @@
       "removeComments": true,
       "skipLibCheck": true,
       "inlineSourceMap": true,
-      "outFile": "./dist/node.js",
-      "baseUrl": "./src/Mudde",
+      "baseUrl": "src/Mudde",
+      "outDir": "dist/",
       "paths": {
          "Mudde/*": [
             "./*"

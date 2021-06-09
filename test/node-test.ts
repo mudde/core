@@ -1,7 +1,4 @@
-//  This import gives the Error: Cannot find module 'Mudde/Core/Node' :( 
-//  A quickfix is to remark the first line in the file '/src/Mudde/Core/Node.ts' (///<amd-module name='Mudde/Core/Node'/>)
-//  Fix it later!  Gr.O.M.
-import Node from "../src/Mudde/Core/Node"
+import Node from "../src/Node"
 import * as chai from 'chai'
 import * as jsdom from "jsdom"
 

@@ -1,5 +1,3 @@
-///<amd-module name='Mudde/Core/Node'/>
-
 export default class Node {
 
    private _root?: HTMLElement
@@ -8,10 +6,8 @@ export default class Node {
    private _idSearch: HTMLElement[] = []
 
    constructor(tagName: string, attributes?: any, text?: string, documentX?: Document) {
-      this._document = typeof document === 'undefined'
-         ? documentX
-         : document
-
+      this._document = documentX ?? document
+      
       this._root = this._current = tagName[0] === '#'
          ? this.getNodeById(tagName.substr(1))
          : this.createNode(tagName, attributes, text)
