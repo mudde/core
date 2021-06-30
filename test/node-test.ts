@@ -1,4 +1,4 @@
-import Node from "../src/Node"
+import NodeCore from "../src/NodeCore"
 import * as chai from 'chai'
 import * as jsdom from "jsdom"
 
@@ -7,14 +7,14 @@ const expect = chai.expect;
 
 describe('My Node library', () => {
    it('can create an element', () => {
-      let testNode = new Node('div', { 'class': 'test' }, undefined, document)
+      let testNode = new NodeCore('div', { 'class': 'test' }, undefined, document)
       expect(testNode.toHTML())
          .to
          .equal('<div class="test"><\/div>');
    });
 
    it('can add an element', () => {
-      let testNode = new Node('div', { 'class': 'test' }, undefined, document)
+      let testNode = new NodeCore('div', { 'class': 'test' }, undefined, document)
       testNode.appendNode_('div')
       expect(testNode.toHTML())
          .to
@@ -22,7 +22,7 @@ describe('My Node library', () => {
    });
 
    it('can add a class to the current element', () => {
-      let testNode = new Node('div', { 'class': 'test' }, undefined, document)
+      let testNode = new NodeCore('div', { 'class': 'test' }, undefined, document)
       testNode
          .appendNode_('div')
          .addClass('test')
@@ -33,7 +33,7 @@ describe('My Node library', () => {
    });
 
    it('can add an extra class to the current element', () => {
-      let testNode = new Node('div', { 'class': 'test' }, undefined, document)
+      let testNode = new NodeCore('div', { 'class': 'test' }, undefined, document)
       testNode
          .appendNode_('div')
          .addClass('test')
@@ -45,7 +45,7 @@ describe('My Node library', () => {
    });
 
    it('can remove a class from the current element', () => {
-      let testNode = new Node('div', { 'class': 'test' }, undefined, document)
+      let testNode = new NodeCore('div', { 'class': 'test' }, undefined, document)
       testNode
          .appendNode_('div')
          .addClass('test')
@@ -58,7 +58,7 @@ describe('My Node library', () => {
    });
 
    it('can prepend a node. First goto the root node', () => {
-      let testNode = new Node('div', { 'class': 'test' }, undefined, document)
+      let testNode = new NodeCore('div', { 'class': 'test' }, undefined, document)
       testNode
          .appendNode_('div')
          .addClass('test')
@@ -71,7 +71,7 @@ describe('My Node library', () => {
    });
 
    it('can you add a sibling to a node', () => {
-      let testNode2 = new Node('div', { 'class': 'test' }, undefined, document)
+      let testNode2 = new NodeCore('div', { 'class': 'test' }, undefined, document)
       testNode2.appendNode_('a', { 'href': '#' }, 'Link')
       testNode2.addSibling('a', { 'href': '#' }, 'Link')
 
@@ -81,8 +81,8 @@ describe('My Node library', () => {
    });
 
    it('can you add search an element by id in generated HTML', () => {
-      let testNode3 = new Node('div', { 'class': 'test' }, undefined, document)
-      let testNode4 = new Node('a', { 'href': '#', 'id': 'link' }, 'Link', document)
+      let testNode3 = new NodeCore('div', { 'class': 'test' }, undefined, document)
+      let testNode4 = new NodeCore('a', { 'href': '#', 'id': 'link' }, 'Link', document)
 
       testNode3.appendElement(testNode4)
 
@@ -92,10 +92,10 @@ describe('My Node library', () => {
    });
 
    it('can you replace an element', () => {
-      let testNode3 = new Node('div', { 'class': 'test' }, undefined, document)
-      let testNode4 = new Node('a', { 'href': '#', 'id': 'link' }, 'Link', document)
+      let testNode3 = new NodeCore('div', { 'class': 'test' }, undefined, document)
+      let testNode4 = new NodeCore('a', { 'href': '#', 'id': 'link' }, 'Link', document)
       let newNode = oldNode => {
-         return new Node('div', { 'class': 'testX' }, undefined, document).appendElement(oldNode)
+         return new NodeCore('div', { 'class': 'testX' }, undefined, document).appendElement(oldNode)
       }
 
       testNode3

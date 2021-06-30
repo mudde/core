@@ -1,4 +1,4 @@
-export default class Node {
+export default class NodeCore {
 
    private _root?: HTMLElement
    private _current?: HTMLElement
@@ -44,7 +44,7 @@ export default class Node {
       return node
    }
 
-   moveInNode(callable: CallableFunction): Node {
+   moveInNode(callable: CallableFunction): NodeCore {
       let current: HTMLElement = this.current
       let tmpNode = this.document.createElement('div')
 
@@ -58,19 +58,19 @@ export default class Node {
       return this
    }
 
-   removeChild(node: Node | HTMLElement): Node {
-      let nodeX = node instanceof Node ? node.root : node
+   removeChild(node: NodeCore | HTMLElement): NodeCore {
+      let nodeX = node instanceof NodeCore ? node.root : node
 
       this.current.removeChild(nodeX)
 
       return this
    }
 
-   addSibling_(tagName: string, attributes?: any, text?: string): Node {
+   addSibling_(tagName: string, attributes?: any, text?: string): NodeCore {
       return this.addSibling(tagName, attributes, text, true)
    }
 
-   addSibling(tagName: string, attributes?: any, text?: string, setCurrent: boolean = false): Node {
+   addSibling(tagName: string, attributes?: any, text?: string, setCurrent: boolean = false): NodeCore {
       let newNode = this.createNode(tagName, attributes, text)
       let parent = this.current.parentNode;
 
@@ -83,11 +83,11 @@ export default class Node {
       return this
    }
 
-   addSiblingNode_(node: Node): Node {
+   addSiblingNode_(node: NodeCore): NodeCore {
       return this.addSiblingNode(node, true)
    }
 
-   addSiblingNode(node: Node, setCurrent: boolean = false): Node {
+   addSiblingNode(node: NodeCore, setCurrent: boolean = false): NodeCore {
       let newNode = this.importElement(node)
       let current = this.current
       let parent = current.parentElement;
@@ -101,7 +101,7 @@ export default class Node {
       return this
    }
 
-   addClass(className: string): Node {
+   addClass(className: string): NodeCore {
       let currentClass = this.current.className
 
       this.current.setAttribute('class', `${currentClass} ${className}`.trimLeft())
@@ -109,7 +109,7 @@ export default class Node {
       return this
    }
 
-   removeClass(className: string): Node {
+   removeClass(className: string): NodeCore {
       let currentClass = ' ' + this.current.className + ' '
 
       this.current.setAttribute('class', currentClass.replace(' ' + className + ' ', ' ').trim())
@@ -128,7 +128,7 @@ export default class Node {
       return this.current.getAttribute(name)
    }
 
-   getElementById(id: string): Node {
+   getElementById(id: string): NodeCore {
       if (id in this._idSearch) {
          this._current = this._idSearch[id]
       }
@@ -160,15 +160,15 @@ export default class Node {
       return this.root.getElementsByClassName(className).length !== 0
    }
 
-   a(tagName: string, attributes?: any, text?: string, setCurrent?: boolean): Node {
+   a(tagName: string, attributes?: any, text?: string, setCurrent?: boolean): NodeCore {
       return this.appendNode(tagName, attributes, text, setCurrent)
    }
 
-   prependNode_(tagName: string, attributes?: any, text?: string): Node {
+   prependNode_(tagName: string, attributes?: any, text?: string): NodeCore {
       return this.prependNode(tagName, attributes, text, true)
    }
 
-   prependNode(tagName: string, attributes?: any, text?: string, setCurrent?: boolean): Node {
+   prependNode(tagName: string, attributes?: any, text?: string, setCurrent?: boolean): NodeCore {
       let firstChild = this.current.firstChild
 
       if (firstChild) {
@@ -182,7 +182,7 @@ export default class Node {
       return this
    }
 
-   appendNode(tagName: string, attributes?: any, text?: string, setCurrent: boolean = false): Node {
+   appendNode(tagName: string, attributes?: any, text?: string, setCurrent: boolean = false): NodeCore {
       let newNode = this.createNode(tagName, attributes, text)
       let HTMLElement = this.current.appendChild(newNode)
 
@@ -195,11 +195,11 @@ export default class Node {
       return this
    }
 
-   a_(tagName: string, attributes?: any, text?: string): Node {
+   a_(tagName: string, attributes?: any, text?: string): NodeCore {
       return this.appendNode(tagName, attributes, text, true)
    }
 
-   appendNode_(tagName: string, attributes?: any, text?: string): Node {
+   appendNode_(tagName: string, attributes?: any, text?: string): NodeCore {
       return this.appendNode(tagName, attributes, text, true)
    }
 
@@ -208,7 +208,7 @@ export default class Node {
       return outerHTML ? root.outerHTML : root.innerHTML
    }
 
-   setAttributes(attributes: any): Node {
+   setAttributes(attributes: any): NodeCore {
       let node = this.current
 
       for (let key in attributes) {
@@ -224,7 +224,7 @@ export default class Node {
       return this
    }
 
-   parent(): Node {
+   parent(): NodeCore {
       let parent = this.current.parentElement
 
       this._current = parent === null ? this.current : parent
@@ -232,11 +232,11 @@ export default class Node {
       return this
    }
 
-   _(): Node {                   //  Alias for method 'parent'
+   _(): NodeCore {                   //  Alias for method 'parent'
       return this.parent()
    }
 
-   prependElement(node: HTMLElement | Node | null): Node {
+   prependElement(node: HTMLElement | NodeCore | null): NodeCore {
       if (node === null) return this
 
       let childNode = this.importElement(node)
@@ -251,7 +251,7 @@ export default class Node {
       return this
    }
 
-   prependElement_(node: HTMLElement | Node | null): Node {
+   prependElement_(node: HTMLElement | NodeCore | null): NodeCore {
       if (node === null) return this
 
       let childNode = this.importElement(node)
@@ -264,7 +264,7 @@ export default class Node {
       return this
    }
 
-   appendElement(node: HTMLElement | Node | null): Node {
+   appendElement(node: HTMLElement | NodeCore | null): NodeCore {
       if (node === null) return this
 
       let childNode = this.importElement(node)
@@ -274,8 +274,8 @@ export default class Node {
       return this
    }
 
-   importElement(node: HTMLElement | Node): HTMLElement {
-      if (!(node instanceof Node)) {
+   importElement(node: HTMLElement | NodeCore): HTMLElement {
+      if (!(node instanceof NodeCore)) {
          return node
       }
 
@@ -288,7 +288,7 @@ export default class Node {
       return node.root
    }
 
-   appendElement_(node: HTMLElement | Node | null): Node {
+   appendElement_(node: HTMLElement | NodeCore | null): NodeCore {
       if (node === null) return this
 
       let childNode = this.importElement(node)
@@ -298,7 +298,7 @@ export default class Node {
       return this
    }
 
-   gotoRoot(): Node {
+   gotoRoot(): NodeCore {
       this._current = this.root
 
       return this

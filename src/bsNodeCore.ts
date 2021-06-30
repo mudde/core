@@ -1,6 +1,6 @@
-import Node from "./Node"
+import Node from "./NodeCore"
 
-export default class BsNode extends Node {
+export default class BsNodeCore extends Node {
 
    formGroup(): Node {
       this.appendNode('div', { class: 'form-control' })
