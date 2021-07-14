@@ -1,4 +1,4 @@
-import NodeCore from "../src/NodeCore"
+import NodeCore from "../src/Mudde/Core/NodeCore"
 import * as chai from 'chai'
 import * as jsdom from "jsdom"
 

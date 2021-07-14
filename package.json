@@ -1,15 +1,17 @@
 {
-  "name": "mudde-node",
+  "name": "my-webpack-project",
   "version": "1.0.0",
-  "description": "Easy node creation in javascript",
-  "main": "dist/node.js",
-  "dependencies": {
-  },
+  "description": "My webpack project",
+  "main": "dist/core.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --reporter spec --require node_modules/ts-node/register --require node_modules/amd-loader/  test/**/*.ts"
+    "test": "./node_modules/mocha/bin/mocha --reporter spec --require node_modules/ts-node/register --require node_modules/amd-loader/  test/**/*.ts",
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -26,16 +28,22 @@
   },
   "homepage": "https://github.com/mudde/node#readme",
   "devDependencies": {
-    "requirejs": "^2.3.6",
-    "typescript": "^4.2.4",
     "@types/chai": "^4.2.17",
     "@types/jsdom": "^16.2.10",
     "@types/mocha": "^8.2.2",
+    "@webpack-cli/generators": "^2.2.0",
+    "create-ts-index": "^1.13.6",
     "amd-loader": "^0.0.8",
     "chai": "^4.3.4",
     "jsdom": "^16.5.3",
     "mocha": "^8.3.2",
-    "ts-loader": "^9.1.1",
-    "ts-node": "^9.1.1"
+    "prettier": "^2.3.2",
+    "requirejs": "^2.3.6",
+    "ts-loader": "^9.2.3",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.3.5",
+    "webpack": "^5.44.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
   }
 }

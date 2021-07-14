@@ -213,28 +213,27 @@
    <xmp id='demo4' class='prettyprint'></xmp>
    </pre>
 
-   <script>var exports = {};</script>
-   <script src="../dist/Node.js"></script>
+   <script src="../dist/core.js"></script>
    <script>
-      var Node = exports
-      let node = new Node.default('div', { 'class': 'class-test' })
+      const NodeX = MuddeCore.valueOf('bsNodeCore')
+      let node = new NodeX.default('div', { 'class': 'class-test' })
       document.getElementById("demo").innerHTML = node.toHTML()
 
-      node = new Node.default('div', { 'class': 'class-test' })
+      node = new NodeX.default('div', { 'class': 'class-test' })
       node
          .appendNode('a', { 'href': 'http://www.google.com' }, 'link')
          .appendNode('p', { 'class': 'bold' })
          .appendNode('a', { 'href': 'http://www.google.com' }, 'link')
       document.getElementById("demo2").innerHTML = node.toHTML()
 
-      node = new Node.default('div', { 'class': 'class-test' })
+      node = new NodeX.default('div', { 'class': 'class-test' })
       node
          .appendNode_('a', { 'href': 'http://www.google.com' }, 'link')
          .prependNode_('p', { 'class': 'bold' })
          .appendNode_('a', { 'href': 'http://www.google.com' }, 'link')
       document.getElementById("demo3").innerHTML = node.toHTML()
 
-      node = new Node.default('div', { 'class': 'class-test' })
+      node = new NodeX.default('div', { 'class': 'class-test' })
       node
          .appendNode_('ul', { 'class': 'nav' })
       // .appendTemplate('li', { 'value': '{{{ data.id }}}' }, 'For {{{ data.name }}}', data)

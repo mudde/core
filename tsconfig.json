@@ -1,30 +1,16 @@
 {
-   "compilerOptions": {
-      "module": "commonjs",
-      "target": "es5",
-      "lib": [
-         "ES2015",
-         "DOM"
-      ],
-      "moduleResolution": "Node",
-      "strict": true,
-      "noImplicitAny": false,
-      "removeComments": true,
-      "skipLibCheck": true,
-      "inlineSourceMap": true,
-      "baseUrl": "src/Mudde",
-      "outDir": "dist/",
-      "paths": {
-         "Mudde/*": [
-            "./*"
-         ]
-      },
-   },
-   "include": [
-      "src/**/*"
-   ],
-   "exclude": [
-      "dist",
-      "node_modules"
-   ]
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "module": "es6",
+    "target": "es5",
+    "allowJs": true,
+    "sourceMap": true,
+    "outDir": "dist/"
+  },
+  "paths": {
+    "Mudde/*": [
+       "./src/Mudde/*"
+    ]
+ }
 }
