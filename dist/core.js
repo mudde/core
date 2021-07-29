@@ -20,6 +20,7 @@ return /******/ (() => { // webpackBootstrap
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BaseHandler = void 0;
 var BaseHandler = /** @class */ (function () {
     function BaseHandler() {
     }
@@ -42,7 +43,7 @@ var BaseHandler = /** @class */ (function () {
     });
     return BaseHandler;
 }());
-exports.default = BaseHandler;
+exports.BaseHandler = BaseHandler;
 
 
 /***/ }),
@@ -55,6 +56,7 @@ exports.default = BaseHandler;
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ConfigurableAbstract = void 0;
 var StringHelper_1 = __webpack_require__(/*! ../Helper/StringHelper */ "./src/Helper/StringHelper.ts");
 var ConfigurableAbstract = /** @class */ (function () {
     function ConfigurableAbstract() {
@@ -62,7 +64,7 @@ var ConfigurableAbstract = /** @class */ (function () {
     ConfigurableAbstract.prototype.configuring = function (config) {
         var defaultConfig = this.getDefaultConfig();
         for (var key in defaultConfig) {
-            var methodName = 'configure' + StringHelper_1.default.ucfirst(key);
+            var methodName = 'configure' + StringHelper_1.StringHelper.ucfirst(key);
             var hasMethod = this[methodName] !== undefined;
             var value = config[key] ? config[key] : defaultConfig[key];
             if (hasMethod) {
@@ -75,7 +77,7 @@ var ConfigurableAbstract = /** @class */ (function () {
     };
     return ConfigurableAbstract;
 }());
-exports.default = ConfigurableAbstract;
+exports.ConfigurableAbstract = ConfigurableAbstract;
 
 
 /***/ }),
@@ -88,6 +90,7 @@ exports.default = ConfigurableAbstract;
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Event = void 0;
 var Event = /** @class */ (function () {
     function Event(source, event) {
         this._source = source;
@@ -113,7 +116,7 @@ var Event = /** @class */ (function () {
     });
     return Event;
 }());
-exports.default = Event;
+exports.Event = Event;
 
 
 /***/ }),
@@ -138,6 +141,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.NodeCore = void 0;
 var NodeCore = /** @class */ (function () {
     function NodeCore(tagName, attributes, text, documentX) {
         this._idSearch = [];
@@ -406,7 +410,7 @@ var NodeCore = /** @class */ (function () {
     });
     return NodeCore;
 }());
-exports.default = NodeCore;
+exports.NodeCore = NodeCore;
 
 
 /***/ }),
@@ -469,6 +473,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BsNodeCore = void 0;
 var NodeCore_1 = __webpack_require__(/*! ./NodeCore */ "./src/Core/NodeCore.ts");
 var BsNodeCore = /** @class */ (function (_super) {
     __extends(BsNodeCore, _super);
@@ -534,8 +539,8 @@ var BsNodeCore = /** @class */ (function (_super) {
         return this;
     };
     return BsNodeCore;
-}(NodeCore_1.default));
-exports.default = BsNodeCore;
+}(NodeCore_1.NodeCore));
+exports.BsNodeCore = BsNodeCore;
 
 
 /***/ }),
@@ -579,6 +584,7 @@ __exportStar(__webpack_require__(/*! ./bsNodeCore */ "./src/Core/bsNodeCore.ts")
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.GuidHelper = void 0;
 // https://raw.githubusercontent.com/NicolasDeveloper/guid-typescript/master/lib/guid.ts
 var GuidHelper = /** @class */ (function () {
     function GuidHelper(guid) {
@@ -631,7 +637,7 @@ var GuidHelper = /** @class */ (function () {
     GuidHelper.EMPTY = "00000000-0000-0000-0000-000000000000";
     return GuidHelper;
 }());
-exports.default = GuidHelper;
+exports.GuidHelper = GuidHelper;
 
 
 /***/ }),
@@ -644,6 +650,7 @@ exports.default = GuidHelper;
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.StringHelper = void 0;
 var StringHelper = /** @class */ (function () {
     function StringHelper() {
     }
@@ -654,7 +661,7 @@ var StringHelper = /** @class */ (function () {
     };
     return StringHelper;
 }());
-exports.default = StringHelper;
+exports.StringHelper = StringHelper;
 
 
 /***/ }),

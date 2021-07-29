@@ -1,4 +1,4 @@
-export default class NodeCore {
+export class NodeCore {
 
    private _root?: HTMLElement
    private _current?: HTMLElement

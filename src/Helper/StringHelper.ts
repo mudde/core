@@ -1,4 +1,4 @@
-export default class StringHelper {
+export class StringHelper {
 
   static ucfirst(value: string) {
     if (value === undefined) return

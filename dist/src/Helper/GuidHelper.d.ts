@@ -1,4 +1,4 @@
-export default class GuidHelper {
+export declare class GuidHelper {
     static validator: RegExp;
     static EMPTY: string;
     private value;

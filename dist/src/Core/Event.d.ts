@@ -1,4 +1,4 @@
-export default class Event {
+export declare class Event {
     private _source?;
     private _eventNumber?;
     constructor(source: any, event: number);

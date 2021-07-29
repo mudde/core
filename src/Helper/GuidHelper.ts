@@ -1,5 +1,5 @@
 // https://raw.githubusercontent.com/NicolasDeveloper/guid-typescript/master/lib/guid.ts
-export default class GuidHelper {
+export class GuidHelper {
 
     static validator = new RegExp("^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$", "i");
     static EMPTY = "00000000-0000-0000-0000-000000000000";

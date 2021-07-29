@@ -1,6 +1,6 @@
-import StringHelper from "../Helper/StringHelper"
+import {StringHelper} from "../Helper/StringHelper"
 
-export default abstract class ConfigurableAbstract {
+export abstract class ConfigurableAbstract {
 
    configuring(config: any) {
       let defaultConfig = this.getDefaultConfig()

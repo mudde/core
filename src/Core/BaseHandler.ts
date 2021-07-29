@@ -1,6 +1,6 @@
 import HandlerInterface from "./HandlerInterface"
 
-export default abstract class BaseHandler implements HandlerInterface {
+export abstract class BaseHandler implements HandlerInterface {
 
   private _nextEvent?: HandlerInterface | undefined
   

@@ -1,4 +1,4 @@
-export default class NodeCore {
+export declare class NodeCore {
     private _root?;
     private _current?;
     private _document?;

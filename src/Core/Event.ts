@@ -1,4 +1,4 @@
-export default class Event {
+export class Event {
    
    private _source?:any
    private _eventNumber?:number

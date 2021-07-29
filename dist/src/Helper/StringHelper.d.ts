@@ -1,3 +1,3 @@
-export default class StringHelper {
+export declare class StringHelper {
     static ucfirst(value: string): string;
 }
