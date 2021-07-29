@@ -1,7 +1,7 @@
 {
   "name": "mudde-core",
   "version": "1.0.0",
-  "description": "Mudde Core",
+  "description": "Mudde Core Classes for Typescript Projects",
   "main": "dist/core.js",
   "directories": {
     "test": "test"
@@ -19,7 +19,7 @@
     "path": "/mudde/node"
   },
   "keywords": [
-    "node"
+    "core"
   ],
   "author": "olaf mudde <olaf.mudde@xs4all.nl>",
   "license": "MIT",

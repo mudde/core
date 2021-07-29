@@ -9,7 +9,10 @@ const config = {
   entry: '/src/index.ts',
   devtool: 'source-map',
   output: {
-    library: 'MuddeCore',
+     library: {
+      name: 'MuddeCore',
+      type: 'umd'
+    },
     filename: 'core.js',
     path: path.resolve(__dirname, "dist")
     

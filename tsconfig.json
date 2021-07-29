@@ -2,15 +2,15 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
-    "module": "es6",
+    "module": "CommonJS",
+    "lib": [
+      "es2015",
+      "dom"
+    ],
     "target": "es5",
     "allowJs": true,
     "sourceMap": true,
-    "outDir": "dist/"
-  },
-  "paths": {
-    "Mudde/*": [
-       "./src/Mudde/*"
-    ]
- }
+    "declaration": true,
+    "outDir": "dist"
+  }
 }

@@ -1,4 +1,4 @@
-import Event from "Mudde/Core/Event";
+import Event from "./Event";
 
 export default interface ObserverInterface {
 

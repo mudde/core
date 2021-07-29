@@ -1,18 +1,25 @@
-var MuddeCore;
-/******/ (() => { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["MuddeCore"] = factory();
+	else
+		root["MuddeCore"] = factory();
+})(self, function() {
+return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/Mudde/Core/BaseHandler.ts":
-/*!***************************************!*\
-  !*** ./src/Mudde/Core/BaseHandler.ts ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ "./src/Core/BaseHandler.ts":
+/*!*********************************!*\
+  !*** ./src/Core/BaseHandler.ts ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, exports) => {
 
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var BaseHandler = /** @class */ (function () {
     function BaseHandler() {
     }
@@ -35,30 +42,27 @@ var BaseHandler = /** @class */ (function () {
     });
     return BaseHandler;
 }());
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BaseHandler);
+exports.default = BaseHandler;
 
 
 /***/ }),
 
-/***/ "./src/Mudde/Core/ConfigurableAbstract.ts":
-/*!************************************************!*\
-  !*** ./src/Mudde/Core/ConfigurableAbstract.ts ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ "./src/Core/ConfigurableAbstract.ts":
+/*!******************************************!*\
+  !*** ./src/Core/ConfigurableAbstract.ts ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _Helper_StringHelper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Helper/StringHelper */ "./src/Mudde/Helper/StringHelper.ts");
 
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var StringHelper_1 = __webpack_require__(/*! ../Helper/StringHelper */ "./src/Helper/StringHelper.ts");
 var ConfigurableAbstract = /** @class */ (function () {
     function ConfigurableAbstract() {
     }
     ConfigurableAbstract.prototype.configuring = function (config) {
         var defaultConfig = this.getDefaultConfig();
         for (var key in defaultConfig) {
-            var methodName = 'configure' + _Helper_StringHelper__WEBPACK_IMPORTED_MODULE_0__.default.ucfirst(key);
+            var methodName = 'configure' + StringHelper_1.default.ucfirst(key);
             var hasMethod = this[methodName] !== undefined;
             var value = config[key] ? config[key] : defaultConfig[key];
             if (hasMethod) {
@@ -71,21 +75,19 @@ var ConfigurableAbstract = /** @class */ (function () {
     };
     return ConfigurableAbstract;
 }());
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ConfigurableAbstract);
+exports.default = ConfigurableAbstract;
 
 
 /***/ }),
 
-/***/ "./src/Mudde/Core/Event.ts":
-/*!*********************************!*\
-  !*** ./src/Mudde/Core/Event.ts ***!
-  \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ "./src/Core/Event.ts":
+/*!***************************!*\
+  !*** ./src/Core/Event.ts ***!
+  \***************************/
+/***/ ((__unused_webpack_module, exports) => {
 
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var Event = /** @class */ (function () {
     function Event(source, event) {
         this._source = source;
@@ -111,33 +113,31 @@ var Event = /** @class */ (function () {
     });
     return Event;
 }());
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Event);
+exports.default = Event;
 
 
 /***/ }),
 
-/***/ "./src/Mudde/Core/HandlerInterface.ts":
-/*!********************************************!*\
-  !*** ./src/Mudde/Core/HandlerInterface.ts ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ "./src/Core/HandlerInterface.ts":
+/*!**************************************!*\
+  !*** ./src/Core/HandlerInterface.ts ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, exports) => {
 
-__webpack_require__.r(__webpack_exports__);
 
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 
 /***/ }),
 
-/***/ "./src/Mudde/Core/NodeCore.ts":
-/*!************************************!*\
-  !*** ./src/Mudde/Core/NodeCore.ts ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ "./src/Core/NodeCore.ts":
+/*!******************************!*\
+  !*** ./src/Core/NodeCore.ts ***!
+  \******************************/
+/***/ ((__unused_webpack_module, exports) => {
 
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var NodeCore = /** @class */ (function () {
     function NodeCore(tagName, attributes, text, documentX) {
         this._idSearch = [];
@@ -406,47 +406,43 @@ var NodeCore = /** @class */ (function () {
     });
     return NodeCore;
 }());
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (NodeCore);
+exports.default = NodeCore;
 
 
 /***/ }),
 
-/***/ "./src/Mudde/Core/ObserverInterface.ts":
-/*!*********************************************!*\
-  !*** ./src/Mudde/Core/ObserverInterface.ts ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
+/***/ "./src/Core/ObserverInterface.ts":
+/*!***************************************!*\
+  !*** ./src/Core/ObserverInterface.ts ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, exports) => {
 
 
-
-/***/ }),
-
-/***/ "./src/Mudde/Core/SubjectInterface.ts":
-/*!********************************************!*\
-  !*** ./src/Mudde/Core/SubjectInterface.ts ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 
 /***/ }),
 
-/***/ "./src/Mudde/Core/bsNodeCore.ts":
+/***/ "./src/Core/SubjectInterface.ts":
 /*!**************************************!*\
-  !*** ./src/Mudde/Core/bsNodeCore.ts ***!
+  !*** ./src/Core/SubjectInterface.ts ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ ((__unused_webpack_module, exports) => {
 
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _NodeCore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NodeCore */ "./src/Mudde/Core/NodeCore.ts");
-var __extends = (undefined && undefined.__extends) || (function () {
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+
+/***/ }),
+
+/***/ "./src/Core/bsNodeCore.ts":
+/*!********************************!*\
+  !*** ./src/Core/bsNodeCore.ts ***!
+  \********************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -461,7 +457,7 @@ var __extends = (undefined && undefined.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (undefined && undefined.__assign) || function () {
+var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
             s = arguments[i];
@@ -472,7 +468,8 @@ var __assign = (undefined && undefined.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var NodeCore_1 = __webpack_require__(/*! ./NodeCore */ "./src/Core/NodeCore.ts");
 var BsNodeCore = /** @class */ (function (_super) {
     __extends(BsNodeCore, _super);
     function BsNodeCore() {
@@ -537,50 +534,51 @@ var BsNodeCore = /** @class */ (function (_super) {
         return this;
     };
     return BsNodeCore;
-}(_NodeCore__WEBPACK_IMPORTED_MODULE_0__.default));
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BsNodeCore);
+}(NodeCore_1.default));
+exports.default = BsNodeCore;
 
 
 /***/ }),
 
-/***/ "./src/Mudde/Core/index.ts":
-/*!*********************************!*\
-  !*** ./src/Mudde/Core/index.ts ***!
-  \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ "./src/Core/index.ts":
+/*!***************************!*\
+  !*** ./src/Core/index.ts ***!
+  \***************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _BaseHandler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BaseHandler */ "./src/Mudde/Core/BaseHandler.ts");
-/* harmony import */ var _ConfigurableAbstract__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ConfigurableAbstract */ "./src/Mudde/Core/ConfigurableAbstract.ts");
-/* harmony import */ var _Event__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Event */ "./src/Mudde/Core/Event.ts");
-/* harmony import */ var _HandlerInterface__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./HandlerInterface */ "./src/Mudde/Core/HandlerInterface.ts");
-/* harmony import */ var _NodeCore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./NodeCore */ "./src/Mudde/Core/NodeCore.ts");
-/* harmony import */ var _ObserverInterface__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ObserverInterface */ "./src/Mudde/Core/ObserverInterface.ts");
-/* harmony import */ var _SubjectInterface__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./SubjectInterface */ "./src/Mudde/Core/SubjectInterface.ts");
-/* harmony import */ var _bsNodeCore__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./bsNodeCore */ "./src/Mudde/Core/bsNodeCore.ts");
+
 // created from 'create-ts-index'
-
-
-
-
-
-
-
-
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(/*! ./BaseHandler */ "./src/Core/BaseHandler.ts"), exports);
+__exportStar(__webpack_require__(/*! ./ConfigurableAbstract */ "./src/Core/ConfigurableAbstract.ts"), exports);
+__exportStar(__webpack_require__(/*! ./Event */ "./src/Core/Event.ts"), exports);
+__exportStar(__webpack_require__(/*! ./HandlerInterface */ "./src/Core/HandlerInterface.ts"), exports);
+__exportStar(__webpack_require__(/*! ./NodeCore */ "./src/Core/NodeCore.ts"), exports);
+__exportStar(__webpack_require__(/*! ./ObserverInterface */ "./src/Core/ObserverInterface.ts"), exports);
+__exportStar(__webpack_require__(/*! ./SubjectInterface */ "./src/Core/SubjectInterface.ts"), exports);
+__exportStar(__webpack_require__(/*! ./bsNodeCore */ "./src/Core/bsNodeCore.ts"), exports);
 
 
 /***/ }),
 
-/***/ "./src/Mudde/Helper/GuidHelper.ts":
-/*!****************************************!*\
-  !*** ./src/Mudde/Helper/GuidHelper.ts ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ "./src/Helper/GuidHelper.ts":
+/*!**********************************!*\
+  !*** ./src/Helper/GuidHelper.ts ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, exports) => {
 
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 // https://raw.githubusercontent.com/NicolasDeveloper/guid-typescript/master/lib/guid.ts
 var GuidHelper = /** @class */ (function () {
     function GuidHelper(guid) {
@@ -633,21 +631,19 @@ var GuidHelper = /** @class */ (function () {
     GuidHelper.EMPTY = "00000000-0000-0000-0000-000000000000";
     return GuidHelper;
 }());
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GuidHelper);
+exports.default = GuidHelper;
 
 
 /***/ }),
 
-/***/ "./src/Mudde/Helper/StringHelper.ts":
-/*!******************************************!*\
-  !*** ./src/Mudde/Helper/StringHelper.ts ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ "./src/Helper/StringHelper.ts":
+/*!************************************!*\
+  !*** ./src/Helper/StringHelper.ts ***!
+  \************************************/
+/***/ ((__unused_webpack_module, exports) => {
 
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var StringHelper = /** @class */ (function () {
     function StringHelper() {
     }
@@ -658,39 +654,32 @@ var StringHelper = /** @class */ (function () {
     };
     return StringHelper;
 }());
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StringHelper);
+exports.default = StringHelper;
 
 
 /***/ }),
 
-/***/ "./src/Mudde/Helper/index.ts":
-/*!***********************************!*\
-  !*** ./src/Mudde/Helper/index.ts ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ "./src/Helper/index.ts":
+/*!*****************************!*\
+  !*** ./src/Helper/index.ts ***!
+  \*****************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _GuidHelper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GuidHelper */ "./src/Mudde/Helper/GuidHelper.ts");
-/* harmony import */ var _StringHelper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StringHelper */ "./src/Mudde/Helper/StringHelper.ts");
+
 // created from 'create-ts-index'
-
-
-
-
-/***/ }),
-
-/***/ "./src/Mudde/index.ts":
-/*!****************************!*\
-  !*** ./src/Mudde/index.ts ***!
-  \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Helper_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Helper/index */ "./src/Mudde/Helper/index.ts");
-/* harmony import */ var _Core_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Core/index */ "./src/Mudde/Core/index.ts");
-// created from 'create-ts-index'
-
-
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(/*! ./GuidHelper */ "./src/Helper/GuidHelper.ts"), exports);
+__exportStar(__webpack_require__(/*! ./StringHelper */ "./src/Helper/StringHelper.ts"), exports);
 
 
 /***/ })
@@ -715,56 +704,33 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
+var exports = __webpack_exports__;
 /*!**********************!*\
   !*** ./src/index.ts ***!
   \**********************/
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Mudde_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Mudde/index */ "./src/Mudde/index.ts");
-// created from 'create-ts-index'
 
+// created from 'create-ts-index'
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Helper = exports.Core = void 0;
+var CoreImport = __webpack_require__(/*! ./Core */ "./src/Core/index.ts");
+var HelperImport = __webpack_require__(/*! ./Helper */ "./src/Helper/index.ts");
+exports.Core = CoreImport;
+exports.Helper = HelperImport;
 
 })();
 
-MuddeCore = __webpack_exports__;
+/******/ 	return __webpack_exports__;
 /******/ })()
 ;
+});
 //# sourceMappingURL=core.js.map
