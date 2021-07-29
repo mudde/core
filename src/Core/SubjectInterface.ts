@@ -1,6 +1,6 @@
-import ObserverInterface from "./ObserverInterface";
+import {ObserverInterface} from "./ObserverInterface";
 
-export default interface SubjectInterface {
+export interface SubjectInterface {
 
    attach(observer:ObserverInterface):void
    detach(observer:ObserverInterface):void

@@ -1,6 +1,6 @@
 import {Event} from "./Event";
 
-export default interface ObserverInterface {
+export interface ObserverInterface {
 
    eventNumber:number
 

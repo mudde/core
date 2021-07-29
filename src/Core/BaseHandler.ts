@@ -1,4 +1,4 @@
-import HandlerInterface from "./HandlerInterface"
+import {HandlerInterface} from "./HandlerInterface"
 
 export abstract class BaseHandler implements HandlerInterface {
 
