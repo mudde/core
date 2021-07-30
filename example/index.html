@@ -193,16 +193,16 @@
 </head>
 
 <body>
-   <pre>new Node.default('div', {'class':'class-test'})</pre>
+   <pre>new NodeCore('div', {'class':'class-test'})</pre>
    <pre class='prettyprint'>   <xmp id='demo'></xmp></pre>
 
-   <pre>new Node.default('div', { 'class': 'class-test' })
+   <pre>new NodeCore('div', { 'class': 'class-test' })
          .appendElement('a', { 'href': 'http://www.google.com' }, 'link')
          .appendElement('p', { 'class': 'bold' })
          .appendElement('a', { 'href': 'http://www.google.com' }, 'link')</pre>
    <pre class='prettyprint'>         <xmp id='demo2' class='prettyprint lang-html'></xmp></pre>
 
-   <pre>new Node.default('div', { 'class': 'class-test' })
+   <pre>new NodeCore('div', { 'class': 'class-test' })
                .appendElement_('a', { 'href': 'http://www.google.com' }, 'link')
                .prependElement_('p', { 'class': 'bold' })
                .appendElement_('a', { 'href': 'http://www.google.com' }, 'link')</pre>
@@ -215,25 +215,25 @@
 
    <script src="../dist/core.js"></script>
    <script>
-      const NodeX = MuddeCore.valueOf('bsNodeCore')
-      let node = new NodeX.default('div', { 'class': 'class-test' })
+      const NodeX = MuddeCore.Core.NodeCore;
+      let node = new NodeX('div', { 'class': 'class-test' })
       document.getElementById("demo").innerHTML = node.toHTML()
 
-      node = new NodeX.default('div', { 'class': 'class-test' })
+      node = new NodeX('div', { 'class': 'class-test' })
       node
          .appendNode('a', { 'href': 'http://www.google.com' }, 'link')
          .appendNode('p', { 'class': 'bold' })
          .appendNode('a', { 'href': 'http://www.google.com' }, 'link')
       document.getElementById("demo2").innerHTML = node.toHTML()
 
-      node = new NodeX.default('div', { 'class': 'class-test' })
+      node = new NodeX('div', { 'class': 'class-test' })
       node
          .appendNode_('a', { 'href': 'http://www.google.com' }, 'link')
          .prependNode_('p', { 'class': 'bold' })
          .appendNode_('a', { 'href': 'http://www.google.com' }, 'link')
       document.getElementById("demo3").innerHTML = node.toHTML()
 
-      node = new NodeX.default('div', { 'class': 'class-test' })
+      node = new NodeX('div', { 'class': 'class-test' })
       node
          .appendNode_('ul', { 'class': 'nav' })
       // .appendTemplate('li', { 'value': '{{{ data.id }}}' }, 'For {{{ data.name }}}', data)
