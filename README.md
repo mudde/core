@@ -1,15 +1,57 @@
-# 🚀 Welcome to your new awesome project!
+# TypeScript Core Library
 
-This project has been created using **webpack-cli**, you can now run
+Some core elements
 
+-- Configurable
 ```
-npm run build
+  class testclass extends ConfigurableAbstract {
+    id: number = -1
+    test: any = {}
+    configured:boolean = false
+    
+    constructor(config: any) {
+      super();
+      this.configuring(config);
+    }
+
+    configureTest(data: any) {
+      this.configured=true
+      this.test = data
+    }
+
+    getDefaultConfig() {
+      return {
+        'id': 0,
+        'test': {}
+      }
+    }
+  }
+```
+**OUTPUTS**
+```
+  new testClass({id:12, test: {a:1}})
+
+  object 'testClass' {
+    id = 12
+    test = {a:1}
+    configured = true
+  }
 ```
 
-or
-
+-- NodeCore
 ```
-yarn build
+let node = new NodeCore('div', { 'class': 'test' })
+node
+  .addElement('div', {'class': 'test2})
+  .addElement_('a', {'href': '#'}, 'LOL')
+  .addElement_('b', {}, 'Test')
 ```
-
-to bundle your application
+**OUTPUTS**
+```
+  <div class="test">
+    <div class="test2">
+      <a href="#">LOL</a>
+      <b>Test</b>
+    </div>
+  </div>
+```
