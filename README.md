@@ -2,7 +2,7 @@
 
 Some core elements
 
--- Configurable
+**Configurable**
 ```
   class testclass extends ConfigurableAbstract {
     id: number = -1
@@ -29,7 +29,7 @@ Some core elements
 
   new testClass({id:12, test: {a:1}})
 ```
-**OUTPUTS**
+*OUTPUTS*
 ```
   object 'testClass' {
     id = 12
@@ -38,7 +38,7 @@ Some core elements
   }
 ```
 
--- NodeCore
+**NodeCore**
 ```
 let node = new NodeCore('div', { 'class': 'test' })
 node
@@ -46,7 +46,7 @@ node
   .addElement_('a', {'href': '#'}, 'LOL')
   .addElement_('b', {}, 'Test')
 ```
-**OUTPUTS**
+*OUTPUTS*
 ```
   <div class="test">
     <div class="test2">
