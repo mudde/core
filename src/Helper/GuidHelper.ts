@@ -1,7 +1,7 @@
 // https://raw.githubusercontent.com/NicolasDeveloper/guid-typescript/master/lib/guid.ts
 export class GuidHelper {
 
-    static validator = new RegExp("^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$", "i");
+    static validator = new RegExp("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$", "i");
     static EMPTY = "00000000-0000-0000-0000-000000000000";
     private value: string;
 
@@ -15,7 +15,7 @@ export class GuidHelper {
         }
     }
 
-    static isGuid(guid: any) {
+    static isGuid(guid: any):boolean {
         const value: string = guid.toString();
 
         return guid && (guid instanceof GuidHelper || GuidHelper.validator.test(value));
@@ -37,7 +37,7 @@ export class GuidHelper {
         return [GuidHelper.gen(2), GuidHelper.gen(1), GuidHelper.gen(1), GuidHelper.gen(1), GuidHelper.gen(3)].join("-");
     }
 
-    private static gen(count: number) {
+    private static gen(count: number) : string {
         let out: string = "";
 
         for (let i: number = 0; i < count; i++) {

@@ -5,7 +5,7 @@ import * as jsdom from "jsdom"
 const document = (new jsdom.JSDOM('<!DOCTYPE html><body></body>'))?.window.document
 const expect = chai.expect;
 
-describe('My Node library', () => {
+describe('My NodeCore element', () => {
    it('can create an element', () => {
       let testNode = new NodeCore('div', { 'class': 'test' }, undefined, document)
       expect(testNode.toHTML())

@@ -633,7 +633,7 @@ var GuidHelper = /** @class */ (function () {
             value: this.value,
         };
     };
-    GuidHelper.validator = new RegExp("^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$", "i");
+    GuidHelper.validator = new RegExp("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$", "i");
     GuidHelper.EMPTY = "00000000-0000-0000-0000-000000000000";
     return GuidHelper;
 }());

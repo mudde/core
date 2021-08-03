@@ -41,6 +41,9 @@ const config = {
     alias: {
       MuddeCore: path.resolve(__dirname, 'src/')
     },
+  },
+  optimization: {
+    minimize: isProduction ? true : false,
   }
 };
 

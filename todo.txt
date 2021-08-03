@@ -4,6 +4,8 @@
 ┃    █   █   █ █   █ █   █  ┃
 ┃    █    ███  ████   ███   ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-- Search by id error's
-- More tests!
-- Readme update
+
+ﻩ Search by id error's
+ﻩ Event test
+ﻩ Readme update
+ﻩ create dist/core.min.js
