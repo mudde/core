@@ -26,11 +26,11 @@ Some core elements
       }
     }
   }
+
+  new testClass({id:12, test: {a:1}})
 ```
 **OUTPUTS**
 ```
-  new testClass({id:12, test: {a:1}})
-
   object 'testClass' {
     id = 12
     test = {a:1}
