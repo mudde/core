@@ -1,6 +1,7 @@
 # TypeScript Core Library
 
-Some core elements
+Some core elements for configuration, HTML element creation and Event handling.
+There is an example in the example folder.
 
 **Configurable**
 ```
