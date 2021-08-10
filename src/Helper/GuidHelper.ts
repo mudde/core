@@ -1,4 +1,9 @@
-// https://raw.githubusercontent.com/NicolasDeveloper/guid-typescript/master/lib/guid.ts
+/**
+ * GuidHelper
+ * 
+ * @source        https://raw.githubusercontent.com/NicolasDeveloper/guid-typescript/master/lib/guid.ts
+ */
+// 
 export class GuidHelper {
 
     static validator = new RegExp("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$", "i");
