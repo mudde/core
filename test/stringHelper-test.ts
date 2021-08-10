@@ -1,5 +1,5 @@
 import * as chai from 'chai'
-import { GuidHelper, StringHelper } from '../src/Helper';
+import { StringHelper } from '../src/Helper';
 
 const expect = chai.expect;
 
