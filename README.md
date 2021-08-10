@@ -1,3 +1,5 @@
+☠ ⅅΞVΞLΘPṀΞΠŦ UΠⅅΞR ℃ΘNSŦRUCŦIΘΠ ☠
+============================
 # TypeScript Core Library
 
 Some core elements for configuration, HTML element creation and Event handling.
