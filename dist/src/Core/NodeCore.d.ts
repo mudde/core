@@ -1,11 +1,46 @@
+/**
+ * Generate and maniputate HTMLElements more easy
+ *
+ * example
+ * ---------------
+ * let node = new NodeCore('div', {class:'container'})
+ * node.appendElement_('div', {class:'row'})
+ *        .appendElement_('div', {class:'col'})
+ *           .appendElement('a', {href:'#', class:'btn btn-default'}, 'Click Me!')
+ *        ._()
+ *        .appendElement_('div', {class:'col'})
+ *           .appendElement('img', {src:'#', class:'photo'})
+ *        ._()
+ * -------
+ * OUTPUTS
+ * -------
+ * <div class='container'>
+ *    <div class='row'>
+ *       <div class='col'>
+ *          <a href='#' class='btn btn-default'>
+ *       </div>
+ *       <div class='col'>
+ *          <img src='#' class='photo'>
+ *       </div>
+ *    </div>
+ * </div>
+ *
+ * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
+ * @copyright     (c) copyright 2021 - Olaf Mudde
+ * @license       MIT
+ */
 export declare class NodeCore {
     private _root?;
     private _current?;
     private _document?;
     private _idSearch;
+    private _click;
+    private _change;
     constructor(tagName: string, attributes?: any, text?: string, documentX?: Document);
     private getNodeById;
     private createNode;
+    click(callable: EventListener): NodeCore;
+    change(callable: EventListener): NodeCore;
     moveInNode(callable: CallableFunction): NodeCore;
     removeChild(node: NodeCore | HTMLElement): NodeCore;
     addSibling_(tagName: string, attributes?: any, text?: string): NodeCore;

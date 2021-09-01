@@ -26,7 +26,7 @@
  * </div>
  * 
  * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
- * @copyright     (c) 2021
+ * @copyright     (c) copyright 2021 - Olaf Mudde
  * @license       MIT
  */
 export class NodeCore {
@@ -35,7 +35,9 @@ export class NodeCore {
    private _current?: HTMLElement
    private _document?: Document
    private _idSearch: HTMLElement[] = []
-
+   private _click: string[] = ['click']
+   private _change: string[] = ['keydown', 'keypress', 'keyup', 'mousedown', 'mouseup', 'change']
+   
    constructor(tagName: string, attributes?: any, text?: string, documentX?: Document) {
       this._document = documentX ?? document
       
@@ -47,6 +49,7 @@ export class NodeCore {
    private getNodeById(nodeId: string): HTMLElement {
       let document = this.document
       let element = document.getElementById(nodeId)
+
       if (!element) throw new Error('Element not found by id!')
 
       return element
@@ -73,6 +76,26 @@ export class NodeCore {
       }
 
       return node
+   }
+
+   click(callable: EventListener):NodeCore {
+      let current: HTMLElement = this.current
+      
+      this._click.forEach((name) => {
+         current.addEventListener(name, callable)
+      })
+
+      return this
+   }
+
+   change(callable: EventListener): NodeCore {
+      let current: HTMLElement = this.current
+      
+      this._change.forEach((name) => {
+         current.addEventListener(name, callable)
+      })
+
+      return this
    }
 
    moveInNode(callable: CallableFunction): NodeCore {

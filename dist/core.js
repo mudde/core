@@ -57,6 +57,41 @@ exports.BaseHandler = BaseHandler;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ConfigurableAbstract = void 0;
+/**
+ * This will automatically configure your object
+ *
+ * example
+ * ---------------
+ * import { ConfigurableAbstract } from "../node_modules/mudde-core/src/Core/ConfigurableAbstract";
+ *
+ * export class Form extends ConfigurableAbstract {
+ *
+ *    private _id: string = ''                   //  <-- empty init
+ *    private _languages: string[] = []
+ *
+ *    constructor(config: any) {
+ *       super()
+ *
+ *       this.configuring(config)
+ *    }
+ *
+ *    getDefaultConfig(): any {                 //  <-- set the default values of all
+ *       return {                               //      the fields you want to configure
+ *          id: GuidHelper.raw(),
+ *          languages: ['nl'],
+ *       }
+ *    }
+ *
+ *    private configureLanguages(rawFields: Object[]): void {     //  <-- if you want some extra checks
+ *       .. your code here                                        //      or create a new object create
+ *    }                                                           //      a method with the following signature
+ *                                                                //      configure<property name>(rawFields: Object[]): void
+ *  }
+ *
+ * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
+ * @copyright     (c) 2021
+ * @license       MIT
+ */
 var StringHelper_1 = __webpack_require__(/*! ../Helper/StringHelper */ "./src/Helper/StringHelper.ts");
 var ConfigurableAbstract = /** @class */ (function () {
     function ConfigurableAbstract() {
@@ -91,6 +126,13 @@ exports.ConfigurableAbstract = ConfigurableAbstract;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Event = void 0;
+/**
+ * Event for Observer pattern
+ *
+ * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
+ * @copyright     (c) 2021
+ * @license       MIT
+ */
 var Event = /** @class */ (function () {
     function Event(source, event) {
         this._source = source;
@@ -142,9 +184,42 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.NodeCore = void 0;
+/**
+ * Generate and maniputate HTMLElements more easy
+ *
+ * example
+ * ---------------
+ * let node = new NodeCore('div', {class:'container'})
+ * node.appendElement_('div', {class:'row'})
+ *        .appendElement_('div', {class:'col'})
+ *           .appendElement('a', {href:'#', class:'btn btn-default'}, 'Click Me!')
+ *        ._()
+ *        .appendElement_('div', {class:'col'})
+ *           .appendElement('img', {src:'#', class:'photo'})
+ *        ._()
+ * -------
+ * OUTPUTS
+ * -------
+ * <div class='container'>
+ *    <div class='row'>
+ *       <div class='col'>
+ *          <a href='#' class='btn btn-default'>
+ *       </div>
+ *       <div class='col'>
+ *          <img src='#' class='photo'>
+ *       </div>
+ *    </div>
+ * </div>
+ *
+ * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
+ * @copyright     (c) copyright 2021 - Olaf Mudde
+ * @license       MIT
+ */
 var NodeCore = /** @class */ (function () {
     function NodeCore(tagName, attributes, text, documentX) {
         this._idSearch = [];
+        this._click = ['click'];
+        this._change = ['keydown', 'keypress', 'keyup', 'mousedown', 'mouseup', 'change'];
         this._document = documentX !== null && documentX !== void 0 ? documentX : document;
         this._root = this._current = tagName[0] === '#'
             ? this.getNodeById(tagName.substr(1))
@@ -173,6 +248,20 @@ var NodeCore = /** @class */ (function () {
             node.innerText = text;
         }
         return node;
+    };
+    NodeCore.prototype.click = function (callable) {
+        var current = this.current;
+        this._click.forEach(function (name) {
+            current.addEventListener(name, callable);
+        });
+        return this;
+    };
+    NodeCore.prototype.change = function (callable) {
+        var current = this.current;
+        this._change.forEach(function (name) {
+            current.addEventListener(name, callable);
+        });
+        return this;
     };
     NodeCore.prototype.moveInNode = function (callable) {
         var current = this.current;
@@ -439,112 +528,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 /***/ }),
 
-/***/ "./src/Core/bsNodeCore.ts":
-/*!********************************!*\
-  !*** ./src/Core/bsNodeCore.ts ***!
-  \********************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.BsNodeCore = void 0;
-var NodeCore_1 = __webpack_require__(/*! ./NodeCore */ "./src/Core/NodeCore.ts");
-var BsNodeCore = /** @class */ (function (_super) {
-    __extends(BsNodeCore, _super);
-    function BsNodeCore() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    BsNodeCore.prototype.formGroup = function () {
-        this.appendNode('div', { class: 'form-control' });
-        return this;
-    };
-    BsNodeCore.prototype.formGroup_ = function () {
-        this.appendNode_('div', { class: 'form-control' });
-        return this;
-    };
-    BsNodeCore.prototype.inputGroupText = function (text) {
-        this.appendNode('span', { class: 'input-group-text' }, text);
-        return this;
-    };
-    BsNodeCore.prototype.inputGroupText_ = function (text) {
-        this.appendNode_('span', { class: 'form-group-text' }, text);
-        return this;
-    };
-    BsNodeCore.prototype.inputGroup = function () {
-        this.appendNode('div', { class: 'input-control mb-1' });
-        return this;
-    };
-    BsNodeCore.prototype.inputGroup_ = function () {
-        this.appendNode_('div', { class: 'input-control mb-1' });
-        return this;
-    };
-    BsNodeCore.prototype.label = function (label, forAttribute, attributes) {
-        this.appendNode('label', __assign(__assign({}, attributes), { class: 'form-label', for: forAttribute }), label);
-        return this;
-    };
-    BsNodeCore.prototype.label_ = function (label, forAttribute, attributes) {
-        this.appendNode_('label', __assign(__assign({}, attributes), { class: 'form-label', for: forAttribute }), label);
-        return this;
-    };
-    BsNodeCore.prototype.input = function (type, id) {
-        this.appendNode('input', { 'class': 'form-control', type: type, id: id });
-        return this;
-    };
-    BsNodeCore.prototype.input_ = function (type, id) {
-        this.appendNode_('input', { class: 'form-control', type: type, id: id });
-        return this;
-    };
-    BsNodeCore.prototype.help = function (text, id) {
-        this.appendNode('span', { class: 'form-text', id: id }, text);
-        return this;
-    };
-    BsNodeCore.prototype.help_ = function (text, id) {
-        this.appendNode_('span', { class: 'form-text', id: id }, text);
-        return this;
-    };
-    BsNodeCore.prototype.span = function (text, attributes) {
-        var attr = attributes ? attributes : {};
-        this.appendNode('span', attr, text);
-        return this;
-    };
-    BsNodeCore.prototype.span_ = function (text, attributes) {
-        var attr = attributes ? attributes : {};
-        this.appendNode_('span', attr, text);
-        return this;
-    };
-    return BsNodeCore;
-}(NodeCore_1.NodeCore));
-exports.BsNodeCore = BsNodeCore;
-
-
-/***/ }),
-
 /***/ "./src/Core/index.ts":
 /*!***************************!*\
   !*** ./src/Core/index.ts ***!
@@ -571,7 +554,6 @@ __exportStar(__webpack_require__(/*! ./HandlerInterface */ "./src/Core/HandlerIn
 __exportStar(__webpack_require__(/*! ./NodeCore */ "./src/Core/NodeCore.ts"), exports);
 __exportStar(__webpack_require__(/*! ./ObserverInterface */ "./src/Core/ObserverInterface.ts"), exports);
 __exportStar(__webpack_require__(/*! ./SubjectInterface */ "./src/Core/SubjectInterface.ts"), exports);
-__exportStar(__webpack_require__(/*! ./bsNodeCore */ "./src/Core/bsNodeCore.ts"), exports);
 
 
 /***/ }),
@@ -585,7 +567,12 @@ __exportStar(__webpack_require__(/*! ./bsNodeCore */ "./src/Core/bsNodeCore.ts")
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GuidHelper = void 0;
-// https://raw.githubusercontent.com/NicolasDeveloper/guid-typescript/master/lib/guid.ts
+/**
+ * GuidHelper
+ *
+ * @source        https://raw.githubusercontent.com/NicolasDeveloper/guid-typescript/master/lib/guid.ts
+ */
+// 
 var GuidHelper = /** @class */ (function () {
     function GuidHelper(guid) {
         if (!guid) {
@@ -651,6 +638,13 @@ exports.GuidHelper = GuidHelper;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.StringHelper = void 0;
+/**
+ * StringHelper for common string mainpulations
+ *
+ * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
+ * @copyright     (c) 2021
+ * @license       MIT
+ */
 var StringHelper = /** @class */ (function () {
     function StringHelper() {
     }

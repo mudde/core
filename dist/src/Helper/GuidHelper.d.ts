@@ -1,3 +1,8 @@
+/**
+ * GuidHelper
+ *
+ * @source        https://raw.githubusercontent.com/NicolasDeveloper/guid-typescript/master/lib/guid.ts
+ */
 export declare class GuidHelper {
     static validator: RegExp;
     static EMPTY: string;

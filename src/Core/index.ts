@@ -7,4 +7,3 @@ export * from './HandlerInterface';
 export * from './NodeCore';
 export * from './ObserverInterface';
 export * from './SubjectInterface';
-export * from './bsNodeCore';
