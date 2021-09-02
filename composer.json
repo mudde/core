@@ -1,0 +1,12 @@
+{
+  "name": "mudde/core",
+  "description": "Tools for creating a typescript app",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+      {
+          "name": "Olaf Mudde",
+          "email": "olaf.mudde@xs4all.nl"
+      }
+  ]
+}
