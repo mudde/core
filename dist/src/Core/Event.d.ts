@@ -8,7 +8,7 @@
 export declare class Event {
     private _source?;
     private _eventNumber?;
-    constructor(source: any, event: number);
+    constructor(source: any, eventNumber: number);
     get source(): any;
     get eventNumber(): number;
 }

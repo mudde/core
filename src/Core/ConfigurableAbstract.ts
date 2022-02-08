@@ -35,7 +35,7 @@
  */
 import { StringHelper } from "../Helper/StringHelper"
 
-export abstract class ConfigurableAbstract {
+export abstract class ConfigurableAbstract{
 
    configuring(config: any) {
       let defaultConfig = this.getDefaultConfig()

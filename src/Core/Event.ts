@@ -10,9 +10,9 @@ export class Event {
    private _source?:any
    private _eventNumber?:number
 
-   constructor(source:any, event:number){
+   constructor(source:any, eventNumber:number){
       this._source = source
-      this._eventNumber = event
+      this._eventNumber = eventNumber
    }
 
    get source():any{
