@@ -1,6 +1,7 @@
 {
   "name": "mudde-core",
   "version": "1.0.0",
+  "type": "module",
   "description": "Mudde Core Classes for Typescript Projects",
   "main": "dist/core.js",
   "directories": {
