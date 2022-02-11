@@ -8,7 +8,7 @@ const config = {
   output: {
     library: {
       name: 'MuddeCore',
-      type: 'umd'
+      type: 'commonjs'
     },
     filename: 'core.js',
     path: path.resolve(__dirname, "dist")
