@@ -3,6 +3,9 @@
   "description": "Tools for creating a typescript app",
   "type": "library",
   "license": "MIT",
+  "require": {
+    "php": ">=8.0.0"
+  },
   "authors": [
       {
           "name": "Olaf Mudde",
