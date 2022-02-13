@@ -9,7 +9,7 @@ import { SubjectInterface } from "./SubjectInterface";
  */
 export declare abstract class SubjectAbstract implements SubjectInterface {
     private _observers;
-    attach(observer: ObserverInterface): void;
+    attach(eventNumber: number, observer: ObserverInterface): void;
     detach(observer: ObserverInterface): void;
     notify(source: any, eventNumber?: number): void;
 }

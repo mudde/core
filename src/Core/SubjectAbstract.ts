@@ -13,21 +13,18 @@ export abstract class SubjectAbstract implements SubjectInterface {
 
    private _observers: any[] = []
 
-   attach(observer: ObserverInterface): void {
-      var eventNumber: number = observer.eventNumber || null
-      if (!eventNumber) return
-      
+   attach(eventNumber: number, observer: ObserverInterface): void {
       this._observers[eventNumber] = this._observers[eventNumber] ?? []
       this._observers[eventNumber].push(observer)
    }
 
    detach(observer: ObserverInterface): void {
-      var eventNumber: number = observer.eventNumber || null
-      if (!eventNumber) return
-
-      if (this._observers[eventNumber]) {
-         this._observers[eventNumber].flatten((item: ObserverInterface) => { return item !== observer })
-      }
+      this._observers.forEach(
+         (observerList) => {
+            observerList.flatten(
+               (item: ObserverInterface) => { return item !== observer })
+         }
+      )
    }
 
    notify(source: any, eventNumber: number = null): void {
