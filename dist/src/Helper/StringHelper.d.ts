@@ -6,5 +6,5 @@
  * @license       MIT
  */
 export declare class StringHelper {
-    static ucfirst(value: string): string;
+    static ucFirst(value: string): string;
 }

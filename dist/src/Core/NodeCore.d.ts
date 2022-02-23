@@ -42,6 +42,7 @@ export declare class NodeCore {
     click(callable: EventListener): NodeCore;
     change(callable: EventListener): NodeCore;
     moveInNode(callable: CallableFunction): NodeCore;
+    removeChildren(): NodeCore;
     removeChild(node: NodeCore | HTMLElement): NodeCore;
     addSibling_(tagName: string, attributes?: any, text?: string): NodeCore;
     addSibling(tagName: string, attributes?: any, text?: string, setCurrent?: boolean): NodeCore;

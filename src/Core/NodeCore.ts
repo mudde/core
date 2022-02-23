@@ -112,6 +112,16 @@ export class NodeCore {
       return this
    }
 
+   removeChildren(): NodeCore{
+      let current = this.current
+
+      current.childNodes.forEach(child => {
+         current.removeChild(child)
+      })
+
+      return this
+   }
+
    removeChild(node: NodeCore | HTMLElement): NodeCore {
       let nodeX = node instanceof NodeCore ? node.root : node
 

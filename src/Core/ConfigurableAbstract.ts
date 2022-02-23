@@ -41,7 +41,7 @@ export abstract class ConfigurableAbstract{
       let defaultConfig = this.getDefaultConfig()
 
       for (let key in defaultConfig) {
-         let methodName = 'configure' + StringHelper.ucfirst(key)
+         let methodName = 'configure' + StringHelper.ucFirst(key)
          let hasMethod = this[methodName] !== undefined
          let value = config[key] ? config[key] : defaultConfig[key]
 
