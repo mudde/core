@@ -9,6 +9,8 @@ import { HandlerInterface } from "./HandlerInterface"
 
 export abstract class BaseHandler implements HandlerInterface {
 
+  abstract handler(data)
+
   private _nextEvent?: HandlerInterface | undefined
   
   setNext(event: HandlerInterface): HandlerInterface {
@@ -19,6 +21,7 @@ export abstract class BaseHandler implements HandlerInterface {
 
   handle(data: any) {
     if (this._nextEvent) {
+      this.handler(data)
       this._nextEvent.handle(data)
     }
 

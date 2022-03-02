@@ -29,18 +29,18 @@
  * @copyright     (c) copyright 2021 - Olaf Mudde
  * @license       MIT
  */
-export class NodeCore {
+export class NodeCore<T = HTMLElement> {
 
-   private _root?: HTMLElement
+   private _root?: HTMLElement | HTMLFormElement
    private _current?: HTMLElement
    private _document?: Document
    private _idSearch: HTMLElement[] = []
    private _click: string[] = ['click']
    private _change: string[] = ['keydown', 'keypress', 'keyup', 'mousedown', 'mouseup', 'change']
-   
+
    constructor(tagName: string, attributes?: any, text?: string, documentX?: Document) {
       this._document = documentX ?? document
-      
+
       this._root = this._current = tagName[0] === '#'
          ? this.getNodeById(tagName.substr(1))
          : this.createNode(tagName, attributes, text)
@@ -78,9 +78,9 @@ export class NodeCore {
       return node
    }
 
-   click(callable: EventListener):NodeCore {
+   click(callable: EventListener): NodeCore {
       let current: HTMLElement = this.current
-      
+
       this._click.forEach((name) => {
          current.addEventListener(name, callable)
       })
@@ -90,7 +90,7 @@ export class NodeCore {
 
    change(callable: EventListener): NodeCore {
       let current: HTMLElement = this.current
-      
+
       this._change.forEach((name) => {
          current.addEventListener(name, callable)
       })
@@ -112,7 +112,7 @@ export class NodeCore {
       return this
    }
 
-   removeChildren(): NodeCore{
+   removeChildren(): NodeCore {
       let current = this.current
 
       current.childNodes.forEach(child => {
@@ -368,7 +368,7 @@ export class NodeCore {
       return this
    }
 
-   get root(): HTMLElement {
+   get root(): HTMLElement | HTMLFormElement {
       if (this._root === undefined) throw new Error('Root node not defined!')
 
       return this._root
