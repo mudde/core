@@ -21,7 +21,7 @@ export abstract class BaseHandler implements HandlerInterface {
 
   handle(data: any) {
     if (this._nextEvent) {
-      this.handler(data)
+      data = this.handler(data)
       this._nextEvent.handle(data)
     }
 
