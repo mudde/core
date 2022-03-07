@@ -29,7 +29,7 @@
  * @copyright     (c) copyright 2021 - Olaf Mudde
  * @license       MIT
  */
-export class NodeCore<T = HTMLElement> {
+export class NodeCore<T = HTMLElement> extends Promise<NodeCore> {
 
    private _root?: HTMLElement | HTMLFormElement
    private _current?: HTMLElement
@@ -39,11 +39,15 @@ export class NodeCore<T = HTMLElement> {
    private _change: string[] = ['keydown', 'keypress', 'keyup', 'mousedown', 'mouseup', 'change']
 
    constructor(tagName: string, attributes?: any, text?: string, documentX?: Document) {
-      this._document = documentX ?? document
-
-      this._root = this._current = tagName[0] === '#'
-         ? this.getNodeById(tagName.substr(1))
-         : this.createNode(tagName, attributes, text)
+      super((resolve) => {
+            this._document = documentX ?? document
+         
+            this._root = this._current = tagName[0] === '#'
+            ? this.getNodeById(tagName.substring(1))
+            : this.createNode(tagName, attributes, text)
+         
+            resolve(this)
+       })
    }
 
    private getNodeById(nodeId: string): HTMLElement {
