@@ -29,7 +29,7 @@
  * @copyright     (c) copyright 2021 - Olaf Mudde
  * @license       MIT
  */
-export declare class NodeCore {
+export declare class NodeCore<T = HTMLElement> {
     private _root?;
     private _current?;
     private _document?;
@@ -74,7 +74,7 @@ export declare class NodeCore {
     importElement(node: HTMLElement | NodeCore): HTMLElement;
     appendElement_(node: HTMLElement | NodeCore | null): NodeCore;
     gotoRoot(): NodeCore;
-    get root(): HTMLElement;
+    get root(): HTMLElement | HTMLFormElement | HTMLInputElement;
     get id(): string | null;
     set innerHTML(html: string);
     get idSearch(): HTMLElement[];

@@ -2,10 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/Core/BaseHandler.ts":
-/*!*********************************!*\
-  !*** ./src/Core/BaseHandler.ts ***!
-  \*********************************/
+/***/ "./src/Core/ChainOfResponsibility/BaseHandler.ts":
+/*!*******************************************************!*\
+  !*** ./src/Core/ChainOfResponsibility/BaseHandler.ts ***!
+  \*******************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -19,6 +19,7 @@ var BaseHandler = /** @class */ (function () {
         return event;
     };
     BaseHandler.prototype.handle = function (data) {
+        this.handler(data);
         if (this._nextEvent) {
             this._nextEvent.handle(data);
         }
@@ -34,6 +35,43 @@ var BaseHandler = /** @class */ (function () {
     return BaseHandler;
 }());
 exports.BaseHandler = BaseHandler;
+
+
+/***/ }),
+
+/***/ "./src/Core/ChainOfResponsibility/HandlerInterface.ts":
+/*!************************************************************!*\
+  !*** ./src/Core/ChainOfResponsibility/HandlerInterface.ts ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+
+/***/ }),
+
+/***/ "./src/Core/ChainOfResponsibility/index.ts":
+/*!*************************************************!*\
+  !*** ./src/Core/ChainOfResponsibility/index.ts ***!
+  \*************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+// created from 'create-ts-index'
+__exportStar(__webpack_require__(/*! ./BaseHandler */ "./src/Core/ChainOfResponsibility/BaseHandler.ts"), exports);
+__exportStar(__webpack_require__(/*! ./HandlerInterface */ "./src/Core/ChainOfResponsibility/HandlerInterface.ts"), exports);
 
 
 /***/ }),
@@ -107,64 +145,6 @@ exports.ConfigurableAbstract = ConfigurableAbstract;
 
 /***/ }),
 
-/***/ "./src/Core/Event.ts":
-/*!***************************!*\
-  !*** ./src/Core/Event.ts ***!
-  \***************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Event = void 0;
-/**
- * Event for Observer pattern
- *
- * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
- * @copyright     (c) 2021
- * @license       MIT
- */
-var Event = /** @class */ (function () {
-    function Event(source, eventNumber) {
-        this._source = source;
-        this._eventNumber = eventNumber;
-    }
-    Object.defineProperty(Event.prototype, "source", {
-        get: function () {
-            if (this._source === undefined)
-                throw new Error('Source not set!');
-            return this._source;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Event.prototype, "eventNumber", {
-        get: function () {
-            if (this._eventNumber === undefined)
-                throw new Error('Event number not set!');
-            return this._eventNumber;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    return Event;
-}());
-exports.Event = Event;
-
-
-/***/ }),
-
-/***/ "./src/Core/HandlerInterface.ts":
-/*!**************************************!*\
-  !*** ./src/Core/HandlerInterface.ts ***!
-  \**************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-
-
-/***/ }),
-
 /***/ "./src/Core/NodeCore.ts":
 /*!******************************!*\
   !*** ./src/Core/NodeCore.ts ***!
@@ -212,7 +192,7 @@ var NodeCore = /** @class */ (function () {
         this._change = ['keydown', 'keypress', 'keyup', 'mousedown', 'mouseup', 'change'];
         this._document = documentX !== null && documentX !== void 0 ? documentX : document;
         this._root = this._current = tagName[0] === '#'
-            ? this.getNodeById(tagName.substr(1))
+            ? this.getNodeById(tagName.substring(1))
             : this.createNode(tagName, attributes, text);
     }
     NodeCore.prototype.getNodeById = function (nodeId) {
@@ -501,10 +481,56 @@ exports.NodeCore = NodeCore;
 
 /***/ }),
 
-/***/ "./src/Core/ObserverAbstract.ts":
-/*!**************************************!*\
-  !*** ./src/Core/ObserverAbstract.ts ***!
-  \**************************************/
+/***/ "./src/Core/ObserverPattern/Event.ts":
+/*!*******************************************!*\
+  !*** ./src/Core/ObserverPattern/Event.ts ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Event = void 0;
+/**
+ * Event for Observer pattern
+ *
+ * @author        Olaf Mudde <olaf.mudde@xs4all.nl>
+ * @copyright     (c) 2021
+ * @license       MIT
+ */
+var Event = /** @class */ (function () {
+    function Event(source, eventNumber) {
+        this._source = source;
+        this._eventNumber = eventNumber;
+    }
+    Object.defineProperty(Event.prototype, "source", {
+        get: function () {
+            if (this._source === undefined)
+                throw new Error('Source not set!');
+            return this._source;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Event.prototype, "eventNumber", {
+        get: function () {
+            if (this._eventNumber === undefined)
+                throw new Error('Event number not set!');
+            return this._eventNumber;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return Event;
+}());
+exports.Event = Event;
+
+
+/***/ }),
+
+/***/ "./src/Core/ObserverPattern/ObserverAbstract.ts":
+/*!******************************************************!*\
+  !*** ./src/Core/ObserverPattern/ObserverAbstract.ts ***!
+  \******************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -520,10 +546,10 @@ exports.ObserverAbstract = ObserverAbstract;
 
 /***/ }),
 
-/***/ "./src/Core/ObserverInterface.ts":
-/*!***************************************!*\
-  !*** ./src/Core/ObserverInterface.ts ***!
-  \***************************************/
+/***/ "./src/Core/ObserverPattern/ObserverInterface.ts":
+/*!*******************************************************!*\
+  !*** ./src/Core/ObserverPattern/ObserverInterface.ts ***!
+  \*******************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -532,16 +558,21 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 /***/ }),
 
-/***/ "./src/Core/SubjectAbstract.ts":
-/*!*************************************!*\
-  !*** ./src/Core/SubjectAbstract.ts ***!
-  \*************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ "./src/Core/ObserverPattern/SubjectAbstract.ts":
+/*!*****************************************************!*\
+  !*** ./src/Core/ObserverPattern/SubjectAbstract.ts ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SubjectAbstract = void 0;
-var Event_1 = __webpack_require__(/*! ./Event */ "./src/Core/Event.ts");
+var Event_1 = __webpack_require__(/*! ./Event */ "./src/Core/ObserverPattern/Event.ts");
 /**
  * Subject for Observer pattern
  *
@@ -552,6 +583,7 @@ var Event_1 = __webpack_require__(/*! ./Event */ "./src/Core/Event.ts");
 var SubjectAbstract = /** @class */ (function () {
     function SubjectAbstract() {
         this._observers = [];
+        this._pause = [];
     }
     SubjectAbstract.prototype.attach = function (eventNumber, observer) {
         var _a;
@@ -566,10 +598,26 @@ var SubjectAbstract = /** @class */ (function () {
     SubjectAbstract.prototype.notify = function (source, eventNumber) {
         if (eventNumber === void 0) { eventNumber = null; }
         var event = source instanceof Event_1.Event ? source : new Event_1.Event(source, eventNumber);
+        var pause = this._pause;
         if (this._observers[eventNumber]) {
             this._observers[eventNumber].forEach(function (element) {
-                element.update(event);
+                pause.indexOf(element) != -1 || typeof element === 'function'
+                    ? element(event)
+                    : element.update(event);
             });
+        }
+    };
+    SubjectAbstract.prototype.pauseAttach = function (observer) {
+        var pause = this._pause;
+        if (pause.indexOf(observer) == -1) {
+            this._pause.push(observer);
+        }
+    };
+    SubjectAbstract.prototype.pauseDetach = function (observer) {
+        var pause = this._pause;
+        var indexOf = pause.indexOf(observer);
+        if (indexOf !== -1) {
+            this._pause = __spreadArray(__spreadArray([], pause.slice(0, indexOf)), pause.slice(indexOf + 1));
         }
     };
     return SubjectAbstract;
@@ -579,10 +627,10 @@ exports.SubjectAbstract = SubjectAbstract;
 
 /***/ }),
 
-/***/ "./src/Core/SubjectInterface.ts":
-/*!**************************************!*\
-  !*** ./src/Core/SubjectInterface.ts ***!
-  \**************************************/
+/***/ "./src/Core/ObserverPattern/SubjectInterface.ts":
+/*!******************************************************!*\
+  !*** ./src/Core/ObserverPattern/SubjectInterface.ts ***!
+  \******************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -591,10 +639,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 /***/ }),
 
-/***/ "./src/Core/index.ts":
-/*!***************************!*\
-  !*** ./src/Core/index.ts ***!
-  \***************************/
+/***/ "./src/Core/ObserverPattern/index.ts":
+/*!*******************************************!*\
+  !*** ./src/Core/ObserverPattern/index.ts ***!
+  \*******************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -610,15 +658,43 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(/*! ./BaseHandler */ "./src/Core/BaseHandler.ts"), exports);
+__exportStar(__webpack_require__(/*! ./ObserverInterface */ "./src/Core/ObserverPattern/ObserverInterface.ts"), exports);
+__exportStar(__webpack_require__(/*! ./ObserverAbstract */ "./src/Core/ObserverPattern/ObserverAbstract.ts"), exports);
+__exportStar(__webpack_require__(/*! ./SubjectInterface */ "./src/Core/ObserverPattern/SubjectInterface.ts"), exports);
+__exportStar(__webpack_require__(/*! ./SubjectAbstract */ "./src/Core/ObserverPattern/SubjectAbstract.ts"), exports);
+__exportStar(__webpack_require__(/*! ./Event */ "./src/Core/ObserverPattern/Event.ts"), exports);
+
+
+/***/ }),
+
+/***/ "./src/Core/index.ts":
+/*!***************************!*\
+  !*** ./src/Core/index.ts ***!
+  \***************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ChainOfResponsibility = exports.ObserverPattern = void 0;
+// created from 'create-ts-index'
+var ObserverPatterns = __webpack_require__(/*! ./ObserverPattern */ "./src/Core/ObserverPattern/index.ts");
+var ChainsOfResponsibility = __webpack_require__(/*! ./ChainOfResponsibility */ "./src/Core/ChainOfResponsibility/index.ts");
+exports.ObserverPattern = ObserverPatterns;
+exports.ChainOfResponsibility = ChainsOfResponsibility;
+__exportStar(__webpack_require__(/*! ./ChainOfResponsibility/BaseHandler */ "./src/Core/ChainOfResponsibility/BaseHandler.ts"), exports);
 __exportStar(__webpack_require__(/*! ./ConfigurableAbstract */ "./src/Core/ConfigurableAbstract.ts"), exports);
-__exportStar(__webpack_require__(/*! ./Event */ "./src/Core/Event.ts"), exports);
-__exportStar(__webpack_require__(/*! ./HandlerInterface */ "./src/Core/HandlerInterface.ts"), exports);
+__exportStar(__webpack_require__(/*! ./ChainOfResponsibility/HandlerInterface */ "./src/Core/ChainOfResponsibility/HandlerInterface.ts"), exports);
 __exportStar(__webpack_require__(/*! ./NodeCore */ "./src/Core/NodeCore.ts"), exports);
-__exportStar(__webpack_require__(/*! ./ObserverInterface */ "./src/Core/ObserverInterface.ts"), exports);
-__exportStar(__webpack_require__(/*! ./ObserverAbstract */ "./src/Core/ObserverAbstract.ts"), exports);
-__exportStar(__webpack_require__(/*! ./SubjectInterface */ "./src/Core/SubjectInterface.ts"), exports);
-__exportStar(__webpack_require__(/*! ./SubjectAbstract */ "./src/Core/SubjectAbstract.ts"), exports);
 
 
 /***/ }),
