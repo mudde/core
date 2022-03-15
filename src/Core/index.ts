@@ -1,11 +1,11 @@
 // created from 'create-ts-index'
+import * as ObserverPatterns from './ObserverPattern';
+import * as ChainsOfResponsibility from './ChainOfResponsibility';
 
-export * from './BaseHandler';
+export const ObserverPattern = ObserverPatterns
+export const ChainOfResponsibility = ChainsOfResponsibility
+
+export * from './ChainOfResponsibility/BaseHandler';
 export * from './ConfigurableAbstract';
-export * from './Event';
-export * from './HandlerInterface';
+export * from './ChainOfResponsibility/HandlerInterface';
 export * from './NodeCore';
-export * from './ObserverInterface';
-export * from './ObserverAbstract';
-export * from './SubjectInterface';
-export * from './SubjectAbstract';

@@ -10,6 +10,7 @@ import { ObserverInterface } from "./ObserverInterface";
 export interface SubjectInterface {
 
    attach(eventNumber: number, observer:ObserverInterface):void
+   pauseAttach(observer:ObserverInterface):void
    detach(observer:ObserverInterface):void
    notify(source:any, eventNumber:number):void
    

@@ -12,6 +12,7 @@ import { SubjectInterface } from "./SubjectInterface"
 export abstract class SubjectAbstract implements SubjectInterface {
 
    private _observers: any[] = []
+   private _pause: any[] = []
 
    attach(eventNumber: number, observer: ObserverInterface): void {
       this._observers[eventNumber] = this._observers[eventNumber] ?? []
@@ -29,11 +30,20 @@ export abstract class SubjectAbstract implements SubjectInterface {
 
    notify(source: any, eventNumber: number = null): void {
       var event = source instanceof Event ? source : new Event(source, eventNumber)
-
+      let pause = this._pause
+      
       if (this._observers[eventNumber]) {
          this._observers[eventNumber].forEach(element => {
-            element.update(event)
+            pause.indexOf(element) != -1 || element.update(event)
          })
+      }
+   }
+
+   pauseAttach(observer: ObserverInterface): void {
+      let pause = this._pause
+
+      if (pause.indexOf(observer) == -1) {
+         this._pause.push(observer)
       }
    }
 

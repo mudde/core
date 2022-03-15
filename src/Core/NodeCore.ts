@@ -29,9 +29,9 @@
  * @copyright     (c) copyright 2021 - Olaf Mudde
  * @license       MIT
  */
-export class NodeCore<T = HTMLElement> {
+ export class NodeCore<T = HTMLElement> {
 
-   private _root?: HTMLElement | HTMLFormElement
+   private _root?: HTMLElement | HTMLFormElement | HTMLInputElement
    private _current?: HTMLElement
    private _document?: Document
    private _idSearch: HTMLElement[] = []
@@ -370,7 +370,7 @@ export class NodeCore<T = HTMLElement> {
       return this
    }
 
-   get root(): HTMLElement | HTMLFormElement {
+   get root(): HTMLElement | HTMLFormElement | HTMLInputElement {
       if (this._root === undefined) throw new Error('Root node not defined!')
 
       return this._root
