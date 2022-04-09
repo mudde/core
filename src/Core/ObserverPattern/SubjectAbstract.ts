@@ -29,16 +29,17 @@ export abstract class SubjectAbstract implements SubjectInterface {
    }
 
    notify(source: any, eventNumber: number = null): void {
-      var event = source instanceof Event ? source : new Event(source, eventNumber)
+      let event = source instanceof Event ? source : new Event(source, eventNumber)
       let pause = this._pause
+      let observers = this._observers[event.eventNumber] ?? []
 
-      if (this._observers[eventNumber]) {
-         this._observers[eventNumber].forEach(element => {
-            pause.indexOf(element) != -1 || typeof element === 'function'
+      observers.forEach(element => {
+         if (pause.indexOf(element) === -1) {
+            typeof element === 'function'
                ? element(event)
                : element.update(event)
-         })
-      }
+         }
+      })
    }
 
    pauseAttach(observer: ObserverInterface | CallableFunction): void {

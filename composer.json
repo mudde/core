@@ -1,7 +1,7 @@
 {
   "name": "mudde/core",
   "description": "Tools for creating a typescript app",
-  "type": "library",
+  "type": "module",
   "license": "MIT",
   "authors": [
       {
