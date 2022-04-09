@@ -1,9 +1,3 @@
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃  █████  ███  ████   ███   ┃
-┃    █   █   █ █   █ █   █  ┃
-┃    █   █   █ █   █ █   █  ┃
-┃    █    ███  ████   ███   ┃
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-ﻩ Event test
-ﻩ Readme update
-ﻩ create dist/core.min.js
+- Event test
+- create dist/core.min.js
+- 
