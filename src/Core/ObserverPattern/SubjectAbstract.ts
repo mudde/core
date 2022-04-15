@@ -31,7 +31,7 @@ export abstract class SubjectAbstract implements SubjectInterface {
    notify(source: any, eventNumber: number = null): void {
       let event = source instanceof Event ? source : new Event(source, eventNumber)
       let pause = this._pause
-      let observers = this._observers[event.eventNumber] ?? []
+      let observers: (ObserverInterface | CallableFunction)[] = this._observers[event.eventNumber] ?? []
 
       observers.forEach(element => {
          if (pause.indexOf(element) === -1) {

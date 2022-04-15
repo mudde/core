@@ -66,7 +66,7 @@
             let value = attributes[key]
 
             if (key === 'id') {
-               this._idSearch[value] = node
+                  this._idSearch[value] = node
             }
 
             node.setAttribute(key, value)
