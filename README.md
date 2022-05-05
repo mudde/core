@@ -20,6 +20,7 @@ npm version 8.5.0
 ```
 
 ## Examples
+There is an example in the folder "examples"
 
 ### ConfigurableAbstract
 Configure an object from an object.
