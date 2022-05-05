@@ -1,22 +1,36 @@
-☠ ⅅΞVΞLΘPṀΞΠŦ UΠⅅΞR ℃ΘNSŦRUCŦIΘΠ ☠
-============================
-# TypeScript Core Library
+# Core - A Typesdcript Library
 
-Some core elements for configuration, HTML element creation and Eventhandling.
+![Npm version](https://img.shields.io/npm/v/core.svg)
+![license](https://img.shields.io/badge/license-MIT-green.svg)
 
-There is an example in the example folder.
+## About
+
+Some core elements for configuration, HTML element creation and some design patterns.
 
 Gr.O.M.
 
-**Configurable**
+## Requirements
+
+npm version 8.5.0
+
+## Installation
+
+```bash
+  npm install mudde/core
 ```
+
+## Examples
+
+### ConfigurableAbstract
+Configure an object from an object.
+```javascript
   class testclass extends ConfigurableAbstract {
     id: number = -1
     test: any = {}
     configured:boolean = false
     
     constructor(config: any) {
-      super();
+      super(config);
       this.configuring(config);
     }
 
@@ -36,24 +50,26 @@ Gr.O.M.
   new testClass({id:12, test: {a:1}})
 ```
 *OUTPUTS*
-```
+```javascript
   object 'testClass' {
     id = 12
     test = {a:1}
     configured = true
   }
 ```
-
-**NodeCore**
-```
+### NodeCore
+Create DOM HTMLElements using NodeCore
+```javascript
 let node = new NodeCore('div', { 'class': 'test' })
 node
-  .addElement('div', {'class': 'test2})
+  .addElement('div', {'class': 'test2'})
   .addElement_('a', {'href': '#'}, 'LOL')
   .addElement_('b', {}, 'Test')
+
+node.toHTML()
 ```
 *OUTPUTS*
-```
+```javascript
   <div class="test">
     <div class="test2">
       <a href="#">LOL</a>
